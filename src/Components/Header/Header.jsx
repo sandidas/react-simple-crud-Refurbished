@@ -73,7 +73,8 @@ const Header = () => {
                     {/* right  side  */}
                     <div className='flex justify-between items-center content-center space-x-5'>
                         {/* Dashboard Button  */}
-                        <LoggedInUser />
+                        {user?.uid && <LoggedInUser userId={user?.uid} />}
+
 
                         {/* Theme Switcher  */}
                         <SwittchDarkLight></SwittchDarkLight>

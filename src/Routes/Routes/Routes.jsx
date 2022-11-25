@@ -12,6 +12,7 @@ import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Registration from "../../Pages/Registration/Registration";
 import NotForLoggedInUser from "../../PrivateRoute/NotForLoggedInUser";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -42,7 +43,7 @@ export const router = createBrowserRouter([
     // =======================
     {
         path: '/dashboard/seller/',
-        element: <LayoutSeller></LayoutSeller>,
+        element: <PrivateRoute><LayoutSeller></LayoutSeller></PrivateRoute>,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -56,7 +57,7 @@ export const router = createBrowserRouter([
     // =======================
     {
         path: '/dashboard/buyer/',
-        element: <LayoutBuyer></LayoutBuyer>,
+        element: <PrivateRoute><LayoutBuyer></LayoutBuyer></PrivateRoute>,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -70,7 +71,7 @@ export const router = createBrowserRouter([
     // =======================
     {
         path: '/dashboard/admin/',
-        element: <LayoutAdmin></LayoutAdmin>,
+        element: <PrivateRoute><LayoutAdmin></LayoutAdmin></PrivateRoute>,
         errorElement: <ErrorPage />,
         children: [
             {

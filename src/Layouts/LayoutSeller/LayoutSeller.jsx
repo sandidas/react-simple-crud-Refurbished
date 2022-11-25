@@ -1,9 +1,25 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
+import SmallSpinner from '../../Components/Spinner/SmallSpinner';
+import { AuthContext } from '../../Context/UserContext';
+import useUserRole from '../../Hooks/useUserRole';
 import DashboardSideBar from '../../Pages/Dashboard/Shared/DashboardSideBar';
 const LayoutSeller = () => {
     const [showSidebar, setShowSidebar] = useState(false);
+    const { user, loading, setLoading } = useContext(AuthContext);
+    const uid = user?.uid || null;
+    const [userRole, isRoleLoading] = useUserRole(uid);
+    const location = useLocation();
+
+
+    if (isRoleLoading || loading) {
+        return <SmallSpinner />
+    }
+    // check user type 
+    if (userRole !== "Seller") {
+        return <Navigate to='/' state={{ from: location }} replace />;
+    }
 
     return (
         <>

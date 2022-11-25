@@ -1,9 +1,28 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
+import Loader from '../../Components/Loader/Loader';
+import { AuthContext } from '../../Context/UserContext';
+import useUserRole from '../../Hooks/useUserRole';
+
+
 import DashboardSideBar from '../../Pages/Dashboard/Shared/DashboardSideBar';
 
 const LayoutAdmin = () => {
+    const { user, loading, setLoading } = useContext(AuthContext);
+    const uid = user?.uid || null;
+    const [userRole, isRoleLoading] = useUserRole(uid);
+    const location = useLocation();
+
+
+    if (isRoleLoading || loading) {
+        return <Loader />
+    }
+    // check user type 
+    if (userRole !== "Admin") {
+        return <Navigate to='/' state={{ from: location }} replace />;
+    }
+
     return (
         <>
             <Header />
