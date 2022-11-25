@@ -22,11 +22,11 @@ const MenuLinks = () => {
                 </NavLink>
             </li>
             <li className="flex group font-bold">
-                <NavLink to="/login" className={({ isActive }) => (isActive ?
+                <NavLink to="/dashboard/seller/" className={({ isActive }) => (isActive ?
                     "dark:text-white text-purple-800 hover:text-white"
                     :
                     "hover:underline")} >
-                    Login
+                    Seller Dashboard
                 </NavLink>
             </li>
         </>

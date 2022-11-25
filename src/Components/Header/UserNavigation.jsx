@@ -4,11 +4,8 @@ import { AuthContext } from '../../Context/UserContext';
 import SmallSpinner from '../Spinner/SmallSpinner'
 
 const UserNavigation = ({ uSettings, setUSettings, handleUserSignout }) => {
-    const { user, loading } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-    if (loading) {
-        return <SmallSpinner />
-    }
     return (
         <>
             <aside className="w-80 absolute right-0 top-16 z-20 shadow-md shadow-slate-200 dark:shadow-slate-600 rounded-md" onClick={() => setUSettings(!uSettings)}>

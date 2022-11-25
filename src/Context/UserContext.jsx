@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 import app from '../Helpers/Firebase.init';
 import toast, { Toaster } from 'react-hot-toast';
+import useUserRole from '../Hooks/useUserRole';
 
 export const AuthContext = createContext({}); // context
 const auth = getAuth(app); // call google firebase auth
@@ -28,6 +29,10 @@ const UserContext = ({ children }) => {
             toast.error(message, settings);
         }
     }
+
+    // user role type type 
+    const [userRole] = useUserRole(user?.uid);
+    // user type 
 
     const googleProvider = new GoogleAuthProvider(); // google auth provider
     const gitHubProvider = new GithubAuthProvider(); // github auth provider
@@ -89,7 +94,7 @@ const UserContext = ({ children }) => {
     // console.log('loader Status: ', loading);
     // console.log(user); 
     // pass data by context
-    const authInfo = { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, userSignout, createNewUser, updateUserProfile, verifyEmail, requestForgetPassword, user, showAlert }
+    const authInfo = { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, userSignout, createNewUser, updateUserProfile, verifyEmail, requestForgetPassword, user, showAlert, userRole }
 
 
     return (

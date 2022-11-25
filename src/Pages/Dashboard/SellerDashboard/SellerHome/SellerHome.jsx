@@ -1,9 +1,10 @@
 import React from 'react';
 
 const SellerHome = () => {
+
     return (
         <div>
-            This is Seller
+            This is Seller Dashboard
         </div>
     );
 };

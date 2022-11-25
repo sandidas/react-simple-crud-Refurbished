@@ -1,7 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import LayoutAdmin from "../../Layouts/LayoutAdmin/LayoutAdmin";
-import LayoutBuyer from "../../Layouts/LayoutBuyer/LayoutBuyer";
-import LayoutSeller from "../../Layouts/LayoutSeller/LayoutSeller";
+import DashboardLayout from "../../Layouts/DashboardLayout";
 import Main from "../../Layouts/Main";
 import AdminHome from "../../Pages/Dashboard/AdminDashboard/AdminHome/AdminHome";
 import BuyerHome from "../../Pages/Dashboard/BuyerDashboard/BuyerHome/BuyerHome";
@@ -12,7 +10,6 @@ import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Registration from "../../Pages/Registration/Registration";
 import NotForLoggedInUser from "../../PrivateRoute/NotForLoggedInUser";
-import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -43,7 +40,7 @@ export const router = createBrowserRouter([
     // =======================
     {
         path: '/dashboard/seller/',
-        element: <PrivateRoute><LayoutSeller></LayoutSeller></PrivateRoute>,
+        element: <DashboardLayout></DashboardLayout>,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -57,7 +54,7 @@ export const router = createBrowserRouter([
     // =======================
     {
         path: '/dashboard/buyer/',
-        element: <PrivateRoute><LayoutBuyer></LayoutBuyer></PrivateRoute>,
+        element: <DashboardLayout></DashboardLayout>,
         errorElement: <ErrorPage />,
         children: [
             {
@@ -71,7 +68,7 @@ export const router = createBrowserRouter([
     // =======================
     {
         path: '/dashboard/admin/',
-        element: <PrivateRoute><LayoutAdmin></LayoutAdmin></PrivateRoute>,
+        element: <DashboardLayout></DashboardLayout>,
         errorElement: <ErrorPage />,
         children: [
             {

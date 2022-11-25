@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../Components/Header/Header';
-import { Outlet } from "react-router-dom";
-import DashboardLeftSidebard from '../Components/DashboardLeftSidebard/DashboardLeftSidebard';
+import { Outlet } from "react-router-dom"; 
 const DashboardLayout = () => {
     const [showHideSideNav, setShowHideSideNav] = useState(true);
     return (
@@ -19,14 +18,13 @@ const DashboardLayout = () => {
 
 
             <div className='grid grid-cols-1 lg:grid-cols-12 mx-auto min-h-[calc(100vh-64px)]'>
-                <aside className={showHideSideNav ? 'lg:col-span-3 dark:bg-gray-900 dark:text-gray-100 bg-slate-100 backdrop-blur-2xl transition-colors duration-500 p-5' : 'hidden'}>
+                <aside className={showHideSideNav ? 'lg:col-span-3 dark:bg-gray-900 dark:text-gray-100 bg-slate-100 p-5' : 'hidden'}>
 
-                    <DashboardLeftSidebard />
-
+Sidebar
 
 
                 </aside>
-                <div className='lg:col-span-9 p-5  dark:bg-gray-800 dark:text-gray-100 backdrop-blur-2xl transition-colors duration-500'>
+                <div className='lg:col-span-9 p-5  dark:bg-gray-800 dark:text-gray-100'>
                     <div className='dark:bg-gray-900 px-5 py-10 rounded-md border border-slate-100 dark:border-none shadow-md'>
                         <Outlet></Outlet>
                     </div>

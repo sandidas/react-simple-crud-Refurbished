@@ -9,7 +9,7 @@ import UserNavigation from './UserNavigation';
 
 
 const Header = () => {
-    const { user, userSignout, showAlert, setLoading } = useContext(AuthContext);
+    const { user, userSignout, showAlert, setLoading, userRole } = useContext(AuthContext);
     const [mobNavigation, setMobNavigation] = useState(false);
     const [uSettings, setUSettings] = useState(false); // user dropdown navigation
     const handleMobileNavigation = () => setMobNavigation(!mobNavigation);
@@ -57,7 +57,7 @@ const Header = () => {
             </div>
 
 
-            <header className='dark:bg-gray-900 dark:text-gray-100 bg-slate-100 top-0 sticky backdrop-blur-2xl transition-colors duration-500 z-50'>
+            <header className='dark:bg-gray-900 dark:text-gray-100 bg-slate-100 top-0 sticky z-50'>
                 <div className="flex justify-between h-16 mx-auto w-[97%]">
 
                     <div className='flex justify-between items-center content-center space-x-8'>
@@ -73,7 +73,7 @@ const Header = () => {
                     {/* right  side  */}
                     <div className='flex justify-between items-center content-center space-x-5'>
                         {/* Dashboard Button  */}
-                        {user?.uid && <LoggedInUser userId={user?.uid} />}
+                        {user?.uid && <LoggedInUser userRole={userRole} />}
 
 
                         {/* Theme Switcher  */}

@@ -21,13 +21,13 @@ const PrivateRoute = ({ children }) => {
 
 
     if (loading) {
-        return <Loader />
+        return ''
     }
     if (user && user?.uid) {
         return (
             <>
                 <div className='grid grid-cols-1 lg:grid-cols-12 mx-auto min-h-[90vh]'>
-                    <div className='lg:col-span-9 px-5  dark:bg-gray-800 dark:text-gray-100 backdrop-blur-2xl transition-colors duration-500'>
+                    <div className='lg:col-span-9 px-5  dark:bg-gray-800 dark:text-gray-100'>
                         <div className='dark:bg-gray-900 px-5 py-10 rounded-md border border-slate-100 dark:border-none shadow-md'>
                             {children}
                         </div>
