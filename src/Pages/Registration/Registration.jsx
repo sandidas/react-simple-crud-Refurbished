@@ -98,6 +98,7 @@ const Registration = () => {
                 const user = result.user;
                 // return
                 // 
+                user['name'] = name;
                 user['password'] = password;
                 user['createdAt'] = Date.now();
                 user['role'] = data.role;
@@ -203,8 +204,8 @@ const Registration = () => {
                             </label>
 
                             <select {...register("role")} className={inputClasses}>
-                                <option value="buyer">Buyer</option>
-                                <option value="seller">Seller</option>
+                                <option value="Buyer">Buyer</option>
+                                <option value="Seller">Seller</option>
                             </select>
 
 

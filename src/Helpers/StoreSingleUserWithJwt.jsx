@@ -10,10 +10,10 @@ export const storeSingleUserWithJwt = async (user) => {
     // StoreSingleUserWithJwtWithJwt
 
     const userInfo = {
-        name: user?.name,
-        email: user?.email,
+        name: user?.name || 'Unknown User',
+        email: user?.email || false,
         photoURL: user?.photoURL,
-        role: user?.role,
+        role: user?.role || 'Buyer',
         sellerIsVerified: false,
         phoneNumber: user?.phoneNumber,
         uid: user?.uid,
@@ -25,12 +25,12 @@ export const storeSingleUserWithJwt = async (user) => {
         soft_delete: user?.soft_delete || false,
         lastLoginAt: Date.now(),
         deleted_at: user?.deleted_at || false,
-        updated_at: user?.updated_at,
+        updated_at: user?.updated_at || Date.now(),
     }
     // since this function is for social login and form registration (not form login), So the only fresh new users are allowed to generate new password. Already existing users no need to create new password
     if (user?.createdAt) { userInfo['password'] = userPassword }
 
-    console.log(userInfo);
+
 
     const uri = `${import.meta.env.VITE_serverUrl}/user/${user?.uid}`;
     const settings = {
