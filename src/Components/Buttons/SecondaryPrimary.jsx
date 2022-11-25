@@ -1,11 +1,11 @@
 import React from 'react';
 
-const AuthProvider = () => {
+const SecondaryPrimary = () => {
     return (
         <div>
-            
+
         </div>
     );
 };
 
-export default AuthProvider;
+export default SecondaryPrimary;

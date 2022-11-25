@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useRouteError } from "react-router-dom";
+import Header from "../../Components/Header/Header";
+
 import useTitle from '../../Hooks/useTitle';
 
 const ErrorPage = () => {
@@ -10,6 +12,7 @@ const ErrorPage = () => {
 
     return (
         <>
+            <Header />
             {error &&
 
                 <section className="flex flex-col items-center h-full p-16 dark:bg-gray-900 dark:text-gray-100 min-h-[calc(100vh_-_50px)]">

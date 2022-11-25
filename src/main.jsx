@@ -1,13 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import ThemeProvider from './Context/ThemeProvider'
+import UserContext from './Context/UserContext'
 import './index.css'
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <UserContext>
+        <App />
+      </UserContext>
+    </QueryClientProvider>
   </React.StrictMode>
 )

@@ -1,0 +1,7 @@
+Road Map of coding
+================== 
+
+Header >  Logo | Dark / Light (localStorage, computer theme) | Mobile and Desktop Menu 
+User Context > 
+Login >
+Registration > 
