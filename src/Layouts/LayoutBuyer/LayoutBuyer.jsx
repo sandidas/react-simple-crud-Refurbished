@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../../Components/Header/Header';
 import DashboardSideBar from '../../Pages/Dashboard/Shared/DashboardSideBar';
-const LayoutSeller = () => {
-    const [showSidebar, setShowSidebar] = useState(false);
 
+const LayoutBuyer = () => {
     return (
         <>
             <Header />
@@ -18,4 +17,4 @@ const LayoutSeller = () => {
     );
 };
 
-export default LayoutSeller;
+export default LayoutBuyer;

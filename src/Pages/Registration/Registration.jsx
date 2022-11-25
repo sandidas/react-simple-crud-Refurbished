@@ -102,7 +102,6 @@ const Registration = () => {
                 user['password'] = password;
                 user['createdAt'] = Date.now();
                 user['role'] = data.role;
-
                 await storeSingleUserWithJwt(user); // store user to mongo db
                 // get/generate jwt token
                 setLoading(false);

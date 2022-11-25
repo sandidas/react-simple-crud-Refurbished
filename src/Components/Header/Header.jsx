@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/logo.svg'
 import { AuthContext } from '../../Context/UserContext';
+import LoggedInUser from './LoggedInUser/LoggedInUser';
 import MenuLinks from './MenuLinks';
 import SwittchDarkLight from './SwittchDarkLight';
 import UserNavigation from './UserNavigation';
@@ -36,12 +37,11 @@ const Header = () => {
             {/* Logged In user Navigation container  uSettings, setUSettings */}
             {user?.uid && uSettings &&
                 <UserNavigation handleUserSignout={handleUserSignout} uSettings={uSettings} setUSettings={setUSettings}  > </UserNavigation>
-
             }
 
             {/* Mobile Navigation container  */}
             <div className={mobNavigation ? 'relative' : 'hidden relative'} onClick={() => setMobNavigation(!mobNavigation)}>
-                <div className="absolute top-[0px] right-0 content-center p-3 space-y-2 w-full z-50  dark:bg-gray-900 dark:text-gray-100 bg-gray-200">
+                <div className="absolute pt-16 top-[0px] right-0 content-center p-3 space-y-2 w-full z-50  dark:bg-gray-900 dark:text-gray-100 bg-gray-200">
                     <div className="p-2 space-x-4">
 
                     </div>
@@ -60,8 +60,6 @@ const Header = () => {
             <header className='dark:bg-gray-900 dark:text-gray-100 bg-slate-100 top-0 sticky backdrop-blur-2xl transition-colors duration-500 z-50'>
                 <div className="flex justify-between h-16 mx-auto w-[97%]">
 
-
-
                     <div className='flex justify-between items-center content-center space-x-8'>
                         <Link to='/' className="flex gap-2 items-center font-bold  text-2xl"><img src={Logo} alt="" width="32px" height="32px" /> WEBSITE TITLE</Link>
 
@@ -74,6 +72,9 @@ const Header = () => {
 
                     {/* right  side  */}
                     <div className='flex justify-between items-center content-center space-x-5'>
+                        {/* Dashboard Button  */}
+                        <LoggedInUser />
+
                         {/* Theme Switcher  */}
                         <SwittchDarkLight></SwittchDarkLight>
                         {/* mobile navigation toggler lg:hidden  */}
