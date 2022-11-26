@@ -1,12 +1,12 @@
 import React from 'react';
 import { createStyles, Group, Burger, Paper, Transition, Button, MediaQuery } from '@mantine/core'
-import SwitchDarkLight from '../SwitchDarkLight/SwitchDarkLight';
 import { useDisclosure } from '@mantine/hooks';
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import HeaderPrivateItems from './HeaderPrivateItems';
 import { useContext } from 'react';
-import { AuthContext } from '../../Context/AuthProvider';
 import toast from 'react-hot-toast';
+import SwitchDarkLight from '../Header/SwittchDarkLight/SwitchDarkLight';
+import { AuthContext } from '../../Context/UserContext';
 
 
 

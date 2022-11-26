@@ -12,12 +12,11 @@ import { storeSingleUserWithJwt } from '../../Helpers/StoreSingleUserWithJwt';
 
 // react hook form 
 import { useForm } from "react-hook-form"; 
-import { AuthContext } from '../../Context/AuthProvider';
-
+import UserContext from '../../Context/UserContext';
 
 const Registration = () => {
     useTitle('Registration')
-    const { user, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocialAccounts } = useContext(AuthContext);
+    const { user, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocialAccounts } = useContext(UserContext);
     const [showPassword, setShowPassword] = useState(false);
     const [genPassword, setGenPassword] = useState('');
     const [password, setPassword] = useState('');
