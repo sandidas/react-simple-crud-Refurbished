@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { checkCurrentTheme, setCurrentTheme } from '../../Helpers/DarkLightTheme';
 
-const SwittchDarkLight = () => {
+const SwitchDarkLight = () => {
     const [theme, setTheme] = useState(false);
 
     // toggle dark and light mode
@@ -65,8 +65,8 @@ const SwittchDarkLight = () => {
                         </svg>
                     </div>
             }
-        </button>
+        </button> 
     );
 };
 
-export default SwittchDarkLight;
+export default SwitchDarkLight;

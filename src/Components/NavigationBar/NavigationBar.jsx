@@ -5,7 +5,8 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import HeaderPrivateItems from './HeaderPrivateItems';
 import { useContext } from 'react';
 import toast from 'react-hot-toast';
-import SwitchDarkLight from '../Header/SwittchDarkLight/SwitchDarkLight';
+import SwitchDarkLight from './SwitchDarkLight';
+
 import { AuthContext } from '../../Context/UserContext';
 
 

@@ -9,27 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@emotion/react": "^11.10.5",
     "@lottiefiles/react-lottie-player": "^3.4.9",
     "@mantine/core": "^5.8.3",
     "@mantine/hooks": "^5.8.3",
     "@tabler/icons": "^1.113.0",
     "firebase": "^9.14.0",
-=======
-    "@headlessui/react": "^1.7.4",
-    "@lottiefiles/react-lottie-player": "^3.4.7",
-    "@tanstack/react-query": "^4.16.1",
-    "date-fns": "^2.29.3",
->>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
     "react": "^18.2.0",
     "react-day-picker": "^8.3.6",
     "react-dom": "^18.2.0",
-<<<<<<< HEAD
     "react-hook-form": "^7.39.5",
-=======
-    "react-hook-form": "^7.39.4",
->>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
     "react-hot-toast": "^2.4.0",
     "react-router-dom": "^6.4.3"
   },

@@ -5,12 +5,13 @@ import PrimaryButton from '../../Components/Buttons/PrimaryButton';
 import OutlineButton from '../../Components/Buttons/OutlineButton';
 import { getJwtToken, storeSingleUserWithJwt } from '../../Helpers/StoreSingleUserWithJwt';
 import toast from 'react-hot-toast';
-import UserContext from '../../Context/UserContext';
+import { AuthContext } from '../../Context/UserContext';
+
 
 const Login = () => {
 
     useTitle('Login');
-    const { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, user } = useContext(UserContext);
+    const { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, user } = useContext(AuthContext);
 
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState(false);

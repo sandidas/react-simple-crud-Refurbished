@@ -2,12 +2,12 @@ import { AppShell, Header, Navbar } from '@mantine/core';
 import React, { useContext, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import Loader from '../../Components/Loader/Loader';
-import NavigationBar from '../../Components/NavigationBar/NavigationBar';
-import { AuthContext } from '../../Context/AuthProvider';
+import NavigationBar from '../../Components/NavigationBar/NavigationBar'; 
+import UserContext from '../../Context/UserContext';
 import DashboardSidebar from '../../Pages/Shared/DashboardSidebar';
 
 const LayoutAdmin = () => {
-    const { userRole, loading, isRoleLoading } = useContext(AuthContext);
+    const { userRole, loading, isRoleLoading } = useContext(UserContext);
     const location = useLocation();
     const [sideBarOpened, setSideBarOpened] = useState(false);
 

@@ -69,7 +69,7 @@ const UserContext = ({ children }) => {
         return sendPasswordResetEmail(auth, email);
     }
     // sign out
-    const userSignout = () => {
+    const userSignOut = () => {
         // setLoading(true);
         return signOut(auth);
     }
@@ -94,7 +94,7 @@ const UserContext = ({ children }) => {
     // console.log('loader Status: ', loading);
     // console.log(user); 
     // pass data by context
-    const authInfo = { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, userSignout, createNewUser, updateUserProfile, verifyEmail, requestForgetPassword, user, showAlert, userRole }
+    const authInfo = { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, userSignOut, createNewUser, updateUserProfile, verifyEmail, requestForgetPassword, user, showAlert, userRole }
 
 
     return (
