@@ -1,7 +1,6 @@
 import { async } from '@firebase/util';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
- 
 import generatePassword from '../../Helpers/GeneratePassword';
 import useTitle from '../../Hooks/useTitle';
 import PrimaryButton from '../../Components/Buttons/PrimaryButton';
@@ -9,14 +8,15 @@ import OutlineButton from '../../Components/Buttons/OutlineButton';
 import { sendImgToImgBB } from '../../Helpers/ImgBBStoreSingleImage';
 import { extensionAndSizeValidations } from '../../Helpers/FileSizeTypeValidation';
 import { storeSingleUserWithJwt } from '../../Helpers/StoreSingleUserWithJwt';
+import toast from 'react-hot-toast';
 
 // react hook form 
-import { useForm } from "react-hook-form"; 
-import UserContext from '../../Context/UserContext';
+import { useForm } from "react-hook-form";  
+import { AuthContext } from '../../Context/UserContext';
 
 const Registration = () => {
     useTitle('Registration')
-    const { user, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocialAccounts } = useContext(UserContext);
+    const { user, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocialAccounts } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [genPassword, setGenPassword] = useState('');
     const [password, setPassword] = useState('');

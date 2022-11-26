@@ -1,4 +1,5 @@
 import generatePassword from "./GeneratePassword";
+import toast from 'react-hot-toast';
 
 export const storeSingleUserWithJwt = async (user) => {
     let userPassword;

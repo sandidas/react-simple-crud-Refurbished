@@ -1,14 +1,12 @@
 import React from 'react';
 import { createStyles, Group, Burger, Paper, Transition, Button, MediaQuery } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks';
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import HeaderPrivateItems from './HeaderPrivateItems';
 import { useContext } from 'react';
 import toast from 'react-hot-toast';
 import SwitchDarkLight from './SwitchDarkLight';
-
 import { AuthContext } from '../../Context/UserContext';
-
 
 
 // style 
@@ -91,6 +89,7 @@ const NavigationBar = ({ sideBarOpened, setSideBarOpened }) => {
     const [opened, { toggle, close }] = useDisclosure(false);
     const { classes, cx } = useStyles();
 
+    const navigate = useNavigate();
 
     const handleUserSignout = () => {
         userSignOut()
@@ -106,11 +105,7 @@ const NavigationBar = ({ sideBarOpened, setSideBarOpened }) => {
                 console.log('error');
                 navigate('/');
             })
-
     }
-
-
-
 
     const links = [
         { label: 'Home', link: '/' },
@@ -143,11 +138,11 @@ const NavigationBar = ({ sideBarOpened, setSideBarOpened }) => {
                 {/* desktop navigation  */}
                 <Group spacing={5} className={classes.links}>
                     {items}
-                    <button onClick={handleUserSignout}>Button</button>
                 </Group>
                 <div className='flex items-center'>
                     <SwitchDarkLight />
-                    {user?.uid && <HeaderPrivateItems userRole={userRole} user={user} />}
+                    {/* Menu items for logged in users only  */}
+                    {user?.uid && <HeaderPrivateItems userRole={userRole} user={user} handleUserSignout={handleUserSignout} />}
                     {!user?.uid && <Button variant="default" component={Link} to='/login/'  > login </Button>}
                 </div>
                 {/* Mobile Navigation  */}

@@ -4,8 +4,8 @@ import { IconSettings, IconSearch, IconPhoto, IconMessageCircle, IconTrash, Icon
 import { Link } from 'react-router-dom';
 
 
-const HeaderPrivateItems = ({ user, userRole }) => {
-    
+const HeaderPrivateItems = ({ user, userRole, handleUserSignout }) => {
+
     const dashboardLink = userRole === "Seller" && "/dashboard/seller/" || userRole === "Buyer" && "/dashboard/buyer/" || userRole === "Admin" && "/dashboard/admin/";
     return (
         <div className='flex items-center gap-2'>
@@ -42,7 +42,7 @@ const HeaderPrivateItems = ({ user, userRole }) => {
 
                     <Menu.Label>Danger zone</Menu.Label>
                     <Menu.Item icon={<IconArrowsLeftRight size={14} />}>Transfer my data</Menu.Item>
-                    <Menu.Item color="red" icon={<IconTrash size={14} />}>Delete my account</Menu.Item>
+                    <Menu.Item onClick={handleUserSignout} color="red" icon={<IconTrash size={14} />}>SignOut</Menu.Item>
                 </Menu.Dropdown>
             </Menu>
         </div>
