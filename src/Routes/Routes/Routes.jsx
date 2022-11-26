@@ -12,6 +12,7 @@ import Registration from "../../Pages/Registration/Registration";
 import BuyerHome from "../../Pages/Dashboard/BuyerDashboard/BuyerHome/BuyerHome";
 import AdminHome from "../../Pages/Dashboard/AdminDashboard/AdminHome/AdminHome";
 import ProductAdd from "../../Pages/Dashboard/SellerDashboard/ProductAdd/ProductAdd";
+import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -40,15 +41,15 @@ export const router = createBrowserRouter([
   // =======================
   {
     path: "/dashboard/seller/",
-    element: <LayoutSeller></LayoutSeller>,
+    element: <PrivateRoute><LayoutSeller></LayoutSeller></PrivateRoute>,
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/dashboard/seller/",
-        element: <SellerHome />
+        element: <PrivateRoute><SellerHome /></PrivateRoute>
       }, {
         path: "/dashboard/seller/product/add",
-        element: <ProductAdd />
+        element: <PrivateRoute><ProductAdd /></PrivateRoute>
       }
     ],
   },

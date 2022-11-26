@@ -4,6 +4,8 @@ import app from '../Helpers/Firebase.init';
 import useUserRole from '../Hooks/useUserRole';
 export const AuthContext = createContext({}); // context
 const auth = getAuth(app); // call google firebase auth
+import toast from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 
 
 const UserContext = ({ children }) => {
@@ -76,7 +78,26 @@ const UserContext = ({ children }) => {
     // console.log('loader Status: ', loading);
     // console.log(user); 
     // pass data by context
-    const authInfo = { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, userSignOut, createNewUser, updateUserProfile, verifyEmail, requestForgetPassword, user, userRole, isRoleLoading }
+
+    const handleUserSignOut = () => {
+        userSignOut()
+            .then(() => {
+                setLoading(false);
+                toast.success('Log out successfully');
+                return <Navigate to='/login' state={{ from: location }} replace />
+            })
+            .catch((error) => {
+                setLoading(false);
+                const errors = error.message + ' | ' + error.code;
+                toast.error(errors);
+                return <Navigate to='/login' state={{ from: location }} replace />
+            })
+    }
+
+
+
+
+    const authInfo = { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, userSignOut, createNewUser, updateUserProfile, verifyEmail, requestForgetPassword, user, userRole, isRoleLoading, handleUserSignOut }
 
 
     return (

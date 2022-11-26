@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form';
 import { extensionAndSizeValidations } from '../../../../Helpers/FileSizeTypeValidation';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../Context/UserContext';
+import { Button } from '@mantine/core';
+import { sendImgToImgBB } from '../../../../Helpers/ImgBBStoreSingleImage';
 
 const ProductAdd = () => {
     const [formPhotoUrl, setFormPhotoUrl] = useState(null);
     // this token will verify user logged in or not including JWT token
     const [thumbnail, setThumbnail] = useState(false);
-    const { user } = useContext(AuthContext);
+    const { user, setLoading, handleUserSignOut } = useContext(AuthContext);
 
     // Image validation 
     const checkImageSizeAndType = (e) => {
@@ -40,16 +42,14 @@ const ProductAdd = () => {
     // React hook form
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-    const handleCreateProduct = async (data) => {
 
+    const handleCreateProduct = async (data) => {
         const photo = formPhotoUrl;
         if (!photo) {
             toast.error("Please select photo.");
             return;
         }
         const photoURL = await sendImgToImgBB(photo);
-
-        console.log(data);
         const productDetails = data;
         productDetails['photoUrl'] = photoURL;
         productDetails['uid'] = user?.uid;
@@ -60,52 +60,82 @@ const ProductAdd = () => {
         productDetails['isReported'] = false;
         productDetails['isPaid'] = false;
 
+        console.log('passed');
+        await storeItem(productDetails)
+    }
 
+    const storeItem = async (itemData) => {
+        setLoading(true);
+        const uri = `${import.meta.env.VITE_serverUrl}/product/`;
+        const settings = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('refurbished')}` // JWToken
+            },
+            body: JSON.stringify(itemData)
+        };
+        try {
+            const fetchResponse = await fetch(uri, settings);
+            const data = await fetchResponse.json();
+            if (data.success) {
+                toast.success(data.message)
+                // now redirect to editing service page
+                // const goTourl = `/dashboard/services/edit/${data.insertedId}`; 
+                setLoading(false);
+                // navigate(goTourl);
+                // navigate(from, { replace: true });
 
-        console.log(productDetails);
-
-
-
-
-
-        return
-
+            } if (data.status === 401) {
+                toast.error(data.message)
+                setLoading(false);
+                handleUserSignOut(); // un auth access, logout
+            }
+            else {
+                setLoading(false);
+                toast.error(data.message)
+            }
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.log(error);
+        }
     }
 
     const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";
-    const labelClasses = "block mb-2 pt-2 text-sm text-slate-400";
+    const labelClasses = "block mb-2 pt-1 text-sm text-slate-400";
     return (
         <div>
             <form className="space-y-4 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(handleCreateProduct)}>
                 <div className='grid grid-cols-8 gap-5'>
                     <div className='col-span-6 space-y-2'>
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Title *
                             </label>
 
                             <input type="text" {...register("title", { required: "Product Title is required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.title && <p className='text-red-400 text-right w-full'> <small>{errors.title.message}</small> </p>}
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Description *
                             </label>
                             <textarea rows="10" cols="50" {...register("description", { required: "Description is required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.description && <p className='text-red-400 text-right w-full'> <small>{errors.description.message}</small> </p>}
+                        </div>
 
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Relevant Information *
                             </label>
                             <input type="text" {...register("relevantInformation", { required: "Relevant Information  is required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.relevantInformation && <p className='text-red-400 text-right w-full'> <small>{errors.relevantInformation.message}</small> </p>}
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className="block mb-2 text-sm text-slate-400">Photo</label>
 
                             <div className='grid grid-cols-8 gap-5 max-h-14 justify-center items-center'>
@@ -116,39 +146,41 @@ const ProductAdd = () => {
                                     }
                                 </div>
                             </div>
-                        </>
+                        </div>
 
 
+
+                        <input type="submit" className='w-full py-4 bg-slate-700 hover:bg-red-800' />
 
 
                     </div>
                     {/* right column  */}
                     <div className='col-span-2 space-y-2'>
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Original Price *
                             </label>
                             <input type="number" {...register("originalPrice", { required: "Original Price is required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.originalPrice && <p className='text-red-400 text-right w-full'> <small> {errors.originalPrice.message}</small> </p>}
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Resale Price *
                             </label>
                             <input type="text" {...register("resalePrice", { required: "Resale Price is required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.resalePrice && <p className='text-red-400 text-right w-full'> <small>{errors.resalePrice.message}</small> </p>}
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Year Of Purchase *
                             </label>
                             <input type="text" {...register("yearOfPurchase", { required: "Year Of Purchase  is required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.yearOfPurchase && <p className='text-red-400 text-right w-full'> <small>{errors.yearOfPurchase.message}</small> </p>}
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Condition *
                             </label>
@@ -158,25 +190,25 @@ const ProductAdd = () => {
                                 <option value="Good">Good</option>
                                 <option value="Fair">Fair</option>
                             </select>
-                        </>
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Mobile Number *
                             </label>
                             <input type="text" {...register("mobileNumber", { required: "Mobile Number is Required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.mobileNumber && <p className='text-red-400 text-right w-full'> <small>{errors.mobileNumber.message}</small> </p>}
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Location *
                             </label>
                             <input type="text" {...register("location", { required: "Location is Required" })} className={inputClasses} />
-                            {errors.name && <p className='text-red-400 text-right w-full'> {errors.name.message} </p>}
-                        </>
+                            {errors.location && <p className='text-red-400 text-right w-full'> <small>{errors.location.message}</small> </p>}
+                        </div>
 
-                        <>
+                        <div>
                             <label htmlFor="name" className={labelClasses}>
                                 Category *
                             </label>
@@ -186,25 +218,8 @@ const ProductAdd = () => {
                                 <option value="HP">HP</option>
                                 <option value="Acer">Acer</option>
                             </select>
-                        </>
-
-
-
-
-
-
-
-
-
-
-                        <button>Create product</button>
+                        </div>
                     </div>
-
-
-
-
-
-
 
 
 
