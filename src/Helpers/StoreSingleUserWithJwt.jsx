@@ -43,10 +43,6 @@ export const storeSingleUserWithJwt = async (user) => {
     try {
         const fetchResponse = await fetch(uri, settings);
         const data = await fetchResponse.json();
-<<<<<<< HEAD
-=======
-        console.log(data);
->>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
         if (data.success === true) {
             // store jwt token in local storage
             localStorage.setItem('refurbished', data.token);
@@ -80,7 +76,6 @@ export const getJwtToken = async (currentUser) => {
             localStorage.setItem('refurbished', data.token)
 
         } else if (data.success === false) {
-<<<<<<< HEAD
             toast.error(data.message)
         } else {
             toast.error(data.message)
@@ -88,14 +83,5 @@ export const getJwtToken = async (currentUser) => {
     } catch (error) {
         // console.log(error);
         toast.error("fail to communicate with server: Token")
-=======
-            showAlert('error', data.message)
-        } else {
-            showAlert('danger', data.message)
-        }
-    } catch (error) {
-        // console.log(error);
-        showAlert('danger', "fail to communicate with server: Token")
->>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
     }
 }
