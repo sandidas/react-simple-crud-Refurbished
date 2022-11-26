@@ -1,5 +1,10 @@
 import React, { useContext } from 'react';
+<<<<<<< HEAD
+import { AuthContext } from '../../Context/AuthProvider';
+
+=======
 import { AuthContext } from '../../Context/UserContext';
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
 import SmallSpinner from '../Spinner/SmallSpinner';
 
 const OutlineButton = ({ children, handler }) => {

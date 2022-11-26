@@ -1,7 +1,11 @@
 import { async } from '@firebase/util';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
+ 
+=======
 import { AuthContext } from '../../Context/UserContext';
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
 import generatePassword from '../../Helpers/GeneratePassword';
 import useTitle from '../../Hooks/useTitle';
 import PrimaryButton from '../../Components/Buttons/PrimaryButton';
@@ -11,12 +15,21 @@ import { extensionAndSizeValidations } from '../../Helpers/FileSizeTypeValidatio
 import { storeSingleUserWithJwt } from '../../Helpers/StoreSingleUserWithJwt';
 
 // react hook form 
+<<<<<<< HEAD
+import { useForm } from "react-hook-form"; 
+import { AuthContext } from '../../Context/AuthProvider';
+=======
 import { useForm } from "react-hook-form";
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
 
 
 const Registration = () => {
     useTitle('Registration')
+<<<<<<< HEAD
+    const { user, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocialAccounts } = useContext(AuthContext);
+=======
     const { user, showAlert, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocialAccounts } = useContext(AuthContext);
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
     const [showPassword, setShowPassword] = useState(false);
     const [genPassword, setGenPassword] = useState('');
     const [password, setPassword] = useState('');
@@ -54,7 +67,11 @@ const Registration = () => {
         if (!validation) {
 
             e.target.value = null; // set image filed is empty
+<<<<<<< HEAD
+            toast.error('Allowed file types png, jpeg, jpg, and size up to 500kb');
+=======
             showAlert('error', 'Allowed file types png, jpeg, jpg, and size up to 500kb');
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
             setLoading(false);
             return;
         }
@@ -80,7 +97,11 @@ const Registration = () => {
         const email = data.email;
         const photo = formPhotoUrl;
         if (!photo) {
+<<<<<<< HEAD
+            toast.error("Please select photo.");
+=======
             showAlert('error', "Please select photo.");
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
             return;
         }
         // call g.firebase by context to store in firebase
@@ -105,14 +126,22 @@ const Registration = () => {
                 await storeSingleUserWithJwt(user); // store user to mongo db
                 // get/generate jwt token
                 setLoading(false);
+<<<<<<< HEAD
+                toast.success("Successfully Registered!");
+=======
                 showAlert('success', "Successfully Registered!");
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
                 // navigate("/");
             })
             .catch(error => {
                 // console.log(error);
                 setLoading(false);
                 const errors = error.message + ' | ' + error.code;
+<<<<<<< HEAD
+                toast.error(errors);
+=======
                 showAlert('danger', errors);
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
             })
     }
 
@@ -149,7 +178,11 @@ const Registration = () => {
             .then(async (result) => {
                 const user = result.user;
                 await storeSingleUserWithJwt(user); // store user to mongo db
+<<<<<<< HEAD
+                toast.success("Logged in successfully.");
+=======
                 showAlert('success', "Logged in successfully.");
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
                 // make sure system stored JWToken in browser memory
                 // setTimeout(() => {
                 //    
@@ -161,7 +194,11 @@ const Registration = () => {
             .catch((error) => {
                 setLoading(false);
                 const errors = error.message + ' | ' + error.code;
+<<<<<<< HEAD
+                toast.error(errors);
+=======
                 showAlert('danger', errors);
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
             });
     }
     useEffect(() => {
@@ -170,7 +207,11 @@ const Registration = () => {
 
     const copyToClipBoard = () => {
         navigator.clipboard.writeText(password);
+<<<<<<< HEAD
+        toast.success(`Copied to clipboard ${password}`)
+=======
         showAlert('success', `Copied to clipboard ${password}`)
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
     }
 
     const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";

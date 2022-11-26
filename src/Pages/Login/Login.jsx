@@ -1,15 +1,28 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
+
+=======
 import { AuthContext } from '../../Context/UserContext';
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
 import useTitle from '../../Hooks/useTitle';
 import PrimaryButton from '../../Components/Buttons/PrimaryButton';
 import OutlineButton from '../../Components/Buttons/OutlineButton';
 import { getJwtToken, storeSingleUserWithJwt } from '../../Helpers/StoreSingleUserWithJwt';
+<<<<<<< HEAD
+import { AuthContext } from '../../Context/AuthProvider';
+import toast from 'react-hot-toast';
+=======
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
 
 const Login = () => {
 
     useTitle('Login');
+<<<<<<< HEAD
+    const { loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, user } = useContext(AuthContext);
+=======
     const { showAlert, loading, setLoading, loginByEmailAndPassword, loginBySocialAccounts, user } = useContext(AuthContext);
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
 
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState(false);
@@ -26,7 +39,11 @@ const Login = () => {
     const handleLogin = (event) => {
         event.preventDefault();
         if (!email || !password) {
+<<<<<<< HEAD
+            toast.error("ERROR: You left empty field.");
+=======
             showAlert('error', "ERROR: You left empty field.");
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
             return
         }
         loginByEmailAndPassword(email, password)
@@ -39,14 +56,22 @@ const Login = () => {
                 }
                 await getJwtToken(currentUser);
                 // token completed
+<<<<<<< HEAD
+                toast.success("Logged in successfully.");
+=======
                 showAlert('success', "Logged in successfully.");
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
                 navigate(from, { replace: true });
 
             })
             .catch(error => {
                 setLoading(false);
                 const errors = error.message;
+<<<<<<< HEAD
+                toast.error(errors);
+=======
                 showAlert('danger', errors);
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
             })
     }
 
@@ -61,13 +86,21 @@ const Login = () => {
                 // if this user is not in the list of users
                 await storeSingleUserWithJwt(user) // store login with generate jwt token
 
+<<<<<<< HEAD
+                toast.success("Logged in successfully.");
+=======
                 showAlert('success', "Logged in successfully.");
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
                 navigate(from, { replace: true });
             })
             .catch((error) => {
                 setLoading(false);
                 const errors = error.message + ' | ' + error.code;
+<<<<<<< HEAD
+                toast.error(errors);
+=======
                 showAlert('danger', errors);
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
             });
     }
 

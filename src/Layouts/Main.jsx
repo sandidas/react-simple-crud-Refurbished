@@ -1,3 +1,24 @@
+<<<<<<< HEAD
+import { AppShell, Header } from '@mantine/core';
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import NavigationBar from '../Components/NavigationBar/NavigationBar';
+
+
+
+
+const Main = () => {
+    return (
+        <>
+            <AppShell
+                header={<Header height={60} p="md"> <NavigationBar /> </Header>}
+            >
+                <Outlet></Outlet>
+            </AppShell>
+
+        </>
+    );
+=======
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Components/Header/Header";
@@ -13,6 +34,7 @@ const Main = () => {
       </div>
     </>
   );
+>>>>>>> e8b0713543b5017904102d4f1368b6620ff54b6c
 };
 
 export default Main;
