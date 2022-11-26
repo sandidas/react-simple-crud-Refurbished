@@ -2,7 +2,7 @@ import { AppShell, Header, Navbar } from '@mantine/core';
 import React, { useContext, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import Loader from '../../Components/Loader/Loader';
-import NavigationBar from '../../Components/NavigationBar/NavigationBar';  
+import NavigationBar from '../../Components/NavigationBar/NavigationBar';
 import { AuthContext } from '../../Context/UserContext';
 import DashboardSidebar from '../../Pages/Shared/DashboardSidebar';
 
@@ -25,7 +25,7 @@ const LayoutBuyer = () => {
                 </Header>}
                 navbarOffsetBreakpoint="md"
                 navbar={
-                    <Navbar p='md' width={{ sm: 200, lg: 300 }} hidden={!sideBarOpened} hiddenBreakpoint="md"   >
+                    <Navbar p='md' width={{ md: 250, lg: 300 }} hidden={!sideBarOpened} hiddenBreakpoint="md" className='bg-slate-100 dark:bg-slate-900' >
                         <DashboardSidebar />
                     </Navbar>
                 }

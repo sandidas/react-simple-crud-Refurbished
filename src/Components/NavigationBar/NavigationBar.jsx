@@ -128,7 +128,7 @@ const NavigationBar = ({ sideBarOpened, setSideBarOpened }) => {
             <div className='flex justify-between items-center'>
                 <Link className='text-xl lg:text-2xl font-bold' to='/'>Best-Refurbished</Link>
                 {/* left sidebar show or hide  */}
-                <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+                <MediaQuery largerThan="md" styles={{ display: 'none' }}>
                     <Burger
                         opened={sideBarOpened}
                         onClick={() => setSideBarOpened((o) => !o)}

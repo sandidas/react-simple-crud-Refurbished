@@ -11,6 +11,7 @@ import Login from "../../Pages/Login/Login";
 import Registration from "../../Pages/Registration/Registration";
 import BuyerHome from "../../Pages/Dashboard/BuyerDashboard/BuyerHome/BuyerHome";
 import AdminHome from "../../Pages/Dashboard/AdminDashboard/AdminHome/AdminHome";
+import ProductAdd from "../../Pages/Dashboard/SellerDashboard/ProductAdd/ProductAdd";
 
 export const router = createBrowserRouter([
   {
@@ -45,7 +46,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/seller/",
         element: <SellerHome />
-      },
+      }, {
+        path: "/dashboard/seller/product/add",
+        element: <ProductAdd />
+      }
     ],
   },
   // =======================

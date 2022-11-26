@@ -3,7 +3,7 @@ import React from 'react';
 const SellerHome = () => {
     return (
         <div>
-            This is Seller Dashboard
+            Product Lists
         </div>
     );
 };

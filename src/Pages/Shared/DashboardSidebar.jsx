@@ -6,9 +6,13 @@ import { Link, useLocation } from 'react-router-dom';
 const DashboardSidebar = () => {
     const location = useLocation();
 
-    
+
 
     const items = [
+        // =========================== 
+        // Seller type users Items
+        // =========================== 
+
         {
             link: '',
             label: 'Products',
@@ -16,33 +20,36 @@ const DashboardSidebar = () => {
             open: true,
             subItems: [
                 {
-                    link: '/dashboard/product/add',
+                    link: '/dashboard/seller/product/add',
                     label: 'Add product',
                 },
                 {
-                    link: '/dashboard/products',
+                    link: '/dashboard/seller/',
                     label: 'Products',
                 },
             ],
         },
+
+
+        // =========================== 
+        // admin type users Items
+        // =========================== 
         {
-            link: '/dashboard/sellers',
+            link: '/dashboard/admin/',
             label: 'All Sellers',
             icon: IconBuildingStore,
         },
         {
-            link: '/dashboard/buyers',
+            link: '/dashboard/admin/buyers',
             label: 'All Buyers',
             icon: IconBasket,
         },
         {
-            link: '/dashboard/reports',
+            link: '/dashboard/admin/reports',
             label: 'Reported Items',
             icon: IconMessageReport,
         }
     ]
-
-
 
 
     return (

@@ -10,9 +10,6 @@ const HeaderPrivateItems = ({ user, userRole, handleUserSignout }) => {
     return (
         <div className='flex items-center gap-2'>
             <Button variant="default" component={Link} to={dashboardLink}  > Dashboard </Button>
-
-
-
             <Menu shadow="md" width={200} position="top-end" >
                 <Menu.Target>
                     <Indicator dot inline size={10} offset={5} position="top-end" color="green" withBorder>

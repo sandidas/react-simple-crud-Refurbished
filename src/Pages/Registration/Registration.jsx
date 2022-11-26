@@ -25,10 +25,6 @@ const Registration = () => {
     const location = useLocation();
     const [formPhotoUrl, setFormPhotoUrl] = useState(null);
     // this token will verify user logged in or not including JWT token
-
-
-
-
     const [thumbnail, setThumbnail] = useState(false);
 
     // console.log('loading ', loading);
