@@ -1,3 +1,4 @@
+import { Loader } from '@mantine/core';
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Context/UserContext';
@@ -21,13 +22,10 @@ const PrivateRoute = ({ children }) => {
 
 
     if (loading) {
-        return ''
+        return <Loader variant='bars' color="white" className='mx-auto min-h-[-calc(100vh_-_681)] sm:min-h-[calc(100vh_-_659px)] md:min-h-[calc(100vh_-_601px)]' />
     }
     if (user && user?.uid) {
-        return (
-            <> {children}     </>
-        )
-
+        return children
     }
     return <Navigate to='/login' state={{ from: location }} replace />
 

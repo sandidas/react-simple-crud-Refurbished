@@ -3,14 +3,18 @@ import { useForm } from 'react-hook-form';
 import { extensionAndSizeValidations } from '../../../../Helpers/FileSizeTypeValidation';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../../Context/UserContext';
-import { Button } from '@mantine/core';
 import { sendImgToImgBB } from '../../../../Helpers/ImgBBStoreSingleImage';
+import Loader from '../../../../Components/Loader/Loader';
+import { LoadingOverlay } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
 const ProductAdd = () => {
     const [formPhotoUrl, setFormPhotoUrl] = useState(null);
     // this token will verify user logged in or not including JWT token
     const [thumbnail, setThumbnail] = useState(false);
-    const { user, setLoading, handleUserSignOut } = useContext(AuthContext);
+    const { user, loading, setLoading, handleUserSignOut } = useContext(AuthContext);
+    const [visible, setVisible] = useState(false);
+    const navigate = useNavigate();
 
     // Image validation 
     const checkImageSizeAndType = (e) => {
@@ -44,28 +48,29 @@ const ProductAdd = () => {
 
 
     const handleCreateProduct = async (data) => {
+
         const photo = formPhotoUrl;
         if (!photo) {
             toast.error("Please select photo.");
             return;
         }
+        setVisible(!visible)
         const photoURL = await sendImgToImgBB(photo);
         const productDetails = data;
-        productDetails['photoUrl'] = photoURL;
+        productDetails['photoUrl'] = photoURL || "NoPhotoUrl";
         productDetails['uid'] = user?.uid;
         productDetails['sellerName'] = user?.sellerName || "Unknown";
         productDetails['createdAt'] = Date.now();
-        productDetails['status'] = "available";
+        productDetails['status'] = "Available";
         productDetails['isAdvertise'] = false;
         productDetails['isReported'] = false;
         productDetails['isPaid'] = false;
-
-        console.log('passed');
+        setLoading(true);
         await storeItem(productDetails)
     }
 
     const storeItem = async (itemData) => {
-        setLoading(true);
+
         const uri = `${import.meta.env.VITE_serverUrl}/product/`;
         const settings = {
             method: 'POST',
@@ -81,32 +86,36 @@ const ProductAdd = () => {
             if (data.success) {
                 toast.success(data.message)
                 // now redirect to editing service page
-                // const goTourl = `/dashboard/services/edit/${data.insertedId}`; 
-                setLoading(false);
-                // navigate(goTourl);
+                const goTourl = `/dashboard/seller/`;
+                setVisible(!visible)
+                navigate(goTourl);
                 // navigate(from, { replace: true });
 
-            } if (data.status === 401) {
+            } else if (data.status === 401) {
                 toast.error(data.message)
-                setLoading(false);
+                setVisible(!visible)
                 handleUserSignOut(); // un auth access, logout
             }
             else {
-                setLoading(false);
+                setVisible(!visible)
                 toast.error(data.message)
             }
-            setLoading(false);
+            setVisible(!visible)
         } catch (error) {
-            setLoading(false);
+            setVisible(!visible)
             console.log(error);
         }
     }
 
     const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";
     const labelClasses = "block mb-2 pt-1 text-sm text-slate-400";
+
+    if (loading) { return <Loader /> }
     return (
-        <div>
+        <>
             <form className="space-y-4 ng-untouched ng-pristine ng-valid" onSubmit={handleSubmit(handleCreateProduct)}>
+
+                <LoadingOverlay visible={visible} overlayBlur={2} radius="md" />
                 <div className='grid grid-cols-8 gap-5'>
                     <div className='col-span-6 space-y-2'>
                         <div>
@@ -119,11 +128,15 @@ const ProductAdd = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="name" className={labelClasses}>
+                            <label htmlFor="name"
+                                className={labelClasses}>
                                 Description *
                             </label>
-                            <textarea rows="10" cols="50" {...register("description", { required: "Description is required" })} className={inputClasses} />
-                            {errors.description && <p className='text-red-400 text-right w-full'> <small>{errors.description.message}</small> </p>}
+                            <textarea rows="10" cols="50"
+                                {...register("description",
+                                    { required: "Description is required" })} className={inputClasses} />
+                            {errors.description &&
+                                <p className='text-red-400 text-right w-full'> <small>{errors.description.message}</small> </p>}
                         </div>
 
 
@@ -149,8 +162,8 @@ const ProductAdd = () => {
                         </div>
 
 
+                        <button type='submit' className='w-full py-4 bg-slate-700 hover:bg-red-800 text-white'>Create Now</button>
 
-                        <input type="submit" className='w-full py-4 bg-slate-700 hover:bg-red-800' />
 
 
                     </div>
@@ -220,19 +233,11 @@ const ProductAdd = () => {
                             </select>
                         </div>
                     </div>
-
-
-
-
-
-
                 </div>
-
-
-
-
             </form>
-        </div>
+
+
+        </>
     );
 };
 
