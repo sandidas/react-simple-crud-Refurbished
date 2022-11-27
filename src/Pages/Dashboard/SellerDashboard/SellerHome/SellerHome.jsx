@@ -53,7 +53,7 @@ const SellerHome = () => {
 
 
     const handleUpdateProduct = async (data) => {
-
+        const id = modalData?._id;
         const productDetails = data;
         const photo = formPhotoUrl;
         // setVisible(!visible)
@@ -61,23 +61,19 @@ const SellerHome = () => {
             const photoURL = await sendImgToImgBB(photo);
             productDetails['photoUrl'] = photoURL || "NoPhotoUrl";
         }
-
-
-
-        productDetails['status'] = "available";
         productDetails['isAdvertise'] = false;
         productDetails['isReported'] = false;
         productDetails['isPaid'] = false;
-        console.log(productDetails);
+        console.log(productDetails, id);
 
-        // setLoading(true);
-        // await updateItem(productDetails);
+        setVisible(true)
+        await updateItem(productDetails, id);
     }
-    const updateItem = async (itemData) => {
+    const updateItem = async (itemData, id) => {
 
-        const uri = `${import.meta.env.VITE_serverUrl}/product/`;
+        const uri = `${import.meta.env.VITE_serverUrl}/product/${id}`;
         const settings = {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'content-type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('refurbished')}` // JWToken
@@ -90,23 +86,33 @@ const SellerHome = () => {
             if (data.success) {
                 toast.success(data.message)
                 // now redirect to editing service page
-                const goTourl = `/dashboard/seller/`;
-                setVisible(!visible)
-                navigate(goTourl);
+                setModalData(null);
+                setModalOpened(false);
+                setVisible(false);
+                refetch();
+                reset()
                 // navigate(from, { replace: true });
 
             } else if (data.status === 401) {
                 toast.error(data.message)
-                setVisible(!visible)
+                setVisible(false);
                 handleUserSignOut(); // un auth access, logout
+
             }
             else {
-                setVisible(!visible)
+                setVisible(false);
                 toast.error(data.message)
+                setModalData(null);
+                setModalOpened(false);
+                refetch();
+                reset()
             }
-            setVisible(!visible)
         } catch (error) {
-            setVisible(!visible)
+            setModalData(null);
+            setModalOpened(false);
+            setVisible(false);
+            refetch();
+            reset()
             console.log(error);
         }
     }
