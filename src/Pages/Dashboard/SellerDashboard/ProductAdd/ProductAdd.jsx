@@ -65,7 +65,7 @@ const ProductAdd = () => {
         productDetails['isAdvertise'] = false;
         productDetails['isReported'] = false;
         productDetails['isPaid'] = false;
-        setLoading(true);
+        // setLoading(true);
         await storeItem(productDetails)
     }
 
@@ -189,8 +189,23 @@ const ProductAdd = () => {
                             <label htmlFor="name" className={labelClasses}>
                                 Year Of Purchase *
                             </label>
-                            <input type="text" {...register("yearOfPurchase", { required: "Year Of Purchase  is required" })} className={inputClasses} />
-                            {errors.yearOfPurchase && <p className='text-red-400 text-right w-full'> <small>{errors.yearOfPurchase.message}</small> </p>}
+
+                            <select {...register("yearOfPurchase")} className={inputClasses}>
+                                <option value="2010">2010</option>
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                            </select>
+
                         </div>
 
                         <div>
@@ -227,9 +242,11 @@ const ProductAdd = () => {
                             </label>
 
                             <select {...register("categorySlug")} className={inputClasses}>
-                                <option value="Apple">Apple</option>
-                                <option value="HP">HP</option>
-                                <option value="Acer">Acer</option>
+                                <option value="MacBook Pro">MacBook Pro</option>
+                                <option value="MacBook Air">MacBook Air</option>
+                                <option value="iMac">iMac</option>
+                                <option value="Mac Mini">Mac Mini</option>
+                                <option value="Mac Studio">Mac Studio</option>
                             </select>
                         </div>
                     </div>

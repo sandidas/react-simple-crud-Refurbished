@@ -35,19 +35,22 @@ const ProductsRow = ({ product, i, setModalOpened, setModalData, handleAdvertise
             </td>
 
             <td className="p-3 text-right">
-
-
                 {
-                    product.isAdvertise ? <Button
-                        onClick={() => { handleAdvertise(product?._id) }}
-                        className='bg-red-700'>
-                        Cancel Advertise
-                    </Button> : <Button
-                        onClick={() => { handleAdvertise(product?._id, true) }}
-                        className='bg-red-900'>
-                        Advertise
-                    </Button>
+                    product?.status == 'Available' &&
+                    (
+                        product.isAdvertise ? <Button
+                            onClick={() => { handleAdvertise(product?._id) }}
+                            className='bg-red-700'>
+                            Cancel Advertise
+                        </Button> : <Button
+                            onClick={() => { handleAdvertise(product?._id, true) }}
+                            className='bg-red-900'>
+                            Advertise
+                        </Button>
+                    )
                 }
+
+
 
             </td>
         </tr>
