@@ -13,6 +13,7 @@ import BuyerHome from "../../Pages/Dashboard/BuyerDashboard/BuyerHome/BuyerHome"
 import AdminHome from "../../Pages/Dashboard/AdminDashboard/AdminHome/AdminHome";
 import ProductAdd from "../../Pages/Dashboard/SellerDashboard/ProductAdd/ProductAdd";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
+import Categories from "../../Pages/Categories/Categories";
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +34,11 @@ export const router = createBrowserRouter([
       {
         path: '/blogs/',
         element: <Blogs />
+      }, {
+        path: '/categories/:id',
+        element: <Categories />
       }
+
     ],
   },
   // =======================

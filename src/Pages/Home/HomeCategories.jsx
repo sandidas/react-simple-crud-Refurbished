@@ -7,29 +7,52 @@ import MacMini from '../../assets/macMini.jpg'
 import { Link } from 'react-router-dom';
 
 
-'apiUrl/:id'
+
+const categoriesItems = [
+    {
+        title: "MacBook Pro",
+        image: MacbookAir,
+        slug: "macBook-pro"
+    }, {
+        title: "MacBook Air",
+        image: MacbookPro,
+        slug: "macbook-air"
+    }, {
+        title: "iMac",
+        image: iMac,
+        slug: "imac"
+    }
+
+];
+/*
 const categoriesItems = [
     {
         title: "MacBook Pro",
         slug: "macbook-pro",
-        image: MacbookAir,
-        link: ""
+        image: "https://ibb.co/rws3yKm",
+
     }, {
         title: "MacBook Air",
-        image: MacbookPro,
-        link: ""
+        slug: "macbook-air",
+        image: "https://ibb.co/VLXnKBZ",
+
     }, {
         title: "iMac",
-        image: iMac,
-        link: ""
-    }
+        slug: "imac",
+        image: "https://ibb.co/m6HVj7m",
 
+    }, {
+        title: "Mac Mini",
+        slug: "mac-mini",
+        image: "",
+    }, {
+        title: "Mac Studio",
+        slug: "mac-studie",
+        image: "",
+    }
 ];
 
-{"name":"Apple Watch","slug":"apple-watch"}
-
-
-
+*/
 
 
 const HomeCategories = () => {
@@ -53,7 +76,7 @@ const HomeCategories = () => {
                             </Group>
 
 
-                            <Link to={categories?.link} className='w-full text-center bg-green-600'> Book Now   </Link>
+                            <Link to={`/categories/${categories?.slug}`} className='w-full text-center bg-green-600'> Book Now   </Link>
                         </Card>
                     )
                 }

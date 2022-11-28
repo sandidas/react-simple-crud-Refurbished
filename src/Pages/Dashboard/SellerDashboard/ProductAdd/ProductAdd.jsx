@@ -65,6 +65,8 @@ const ProductAdd = () => {
         productDetails['isAdvertise'] = false;
         productDetails['isReported'] = false;
         productDetails['isPaid'] = false;
+        const cateSlug = data.categoryName;
+        productDetails['categorySlug'] = cateSlug.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
         // setLoading(true);
         await storeItem(productDetails)
     }
@@ -241,7 +243,7 @@ const ProductAdd = () => {
                                 Category *
                             </label>
 
-                            <select {...register("categorySlug")} className={inputClasses}>
+                            <select {...register("categoryName")} className={inputClasses}>
                                 <option value="MacBook Pro">MacBook Pro</option>
                                 <option value="MacBook Air">MacBook Air</option>
                                 <option value="iMac">iMac</option>

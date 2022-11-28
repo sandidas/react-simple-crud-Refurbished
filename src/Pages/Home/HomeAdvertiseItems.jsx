@@ -11,7 +11,6 @@ const HomeAdvertiseItems = ({ advertisedProducts }) => {
                     <ProductSingleCard key={product?._id} product={product} />
                 )
             }
-
         </section>
     );
 };

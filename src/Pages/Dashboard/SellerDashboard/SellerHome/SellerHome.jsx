@@ -12,7 +12,7 @@ import ProductsRow from './ProductsRow';
 
 const SellerHome = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, handleUserSignOut } = useContext(AuthContext);
     const [modalOpened, setModalOpened] = useState(false);
     const [modalData, setModalData] = useState(null);
 
@@ -57,6 +57,7 @@ const SellerHome = () => {
         const id = modalData?._id;
         const productDetails = data;
         const photo = formPhotoUrl;
+
         // setVisible(!visible)
         if (photo) {
             const photoURL = await sendImgToImgBB(photo);
@@ -64,7 +65,9 @@ const SellerHome = () => {
         }
         productDetails['isReported'] = false;
         productDetails['isPaid'] = false;
-        console.log(productDetails, id);
+        const cateSlug = data.categoryName;
+        productDetails['categorySlug'] = cateSlug.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        // console.log(productDetails, id);
 
         setVisible(true)
         await updateItem(productDetails, id);
@@ -130,14 +133,26 @@ const SellerHome = () => {
 
     // Products loading
     const uri = `${import.meta.env.VITE_serverUrl}/products?uid=${user?.uid}`;
+    const settings = {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('refurbished')}`
+        }
+    };
     const { data, refetch, isLoading, isError, error } = useQuery({
         queryKey: ['products'], // when user change the date it will re-fetch 
         queryFn: async () => {
-            const res = await fetch(uri);
+            const res = await fetch(uri, settings);
             const data = await res.json();
+            if (data.status === 401) {
+                toast.error(data.message)
+                handleUserSignOut(); // un auth access, logout
+            }
             return data.data;
         }
     })
+
     if (isLoading) {
         return <SmallSpinner />
     }
@@ -334,8 +349,8 @@ const SellerHome = () => {
                                         Category *
                                     </label>
 
-                                    <select {...register("categorySlug")} className={inputClasses}>
-                                        <option value={modalData?.categorySlug}>{modalData?.categorySlug}</option>
+                                    <select {...register("categoryName")} className={inputClasses}>
+                                        <option value={modalData?.categoryName}>{modalData?.categoryName}</option>
                                         <option value="MacBook Pro">MacBook Pro</option>
                                         <option value="MacBook Air">MacBook Air</option>
                                         <option value="iMac">iMac</option>
