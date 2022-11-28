@@ -8,7 +8,6 @@ import toast from 'react-hot-toast';
 import SwitchDarkLight from './SwitchDarkLight';
 import { AuthContext } from '../../Context/UserContext';
 
-
 // style 
 const HEADER_HEIGHT = 60;
 const useStyles = createStyles((theme) => ({
@@ -81,7 +80,6 @@ const useStyles = createStyles((theme) => ({
 }));
 // # style 
 const activeClass = "bg-white"
-
 
 const NavigationBar = ({ sideBarOpened, setSideBarOpened }) => {
     const { userRole, user, userSignOut, setLoading } = useContext(AuthContext);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 const useUserRole = (uid) => {
+    
     const [userRole, setUserRole] = useState(false);
     const [isRoleLoading, setIsRoleLoading] = useState(true);
 

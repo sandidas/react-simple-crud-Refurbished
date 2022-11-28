@@ -9,6 +9,7 @@ import { AuthContext } from '../../Context/UserContext';
 
 const ProductSingleCard = ({ product }) => {
     const [opened, setOpened] = useState(false);
+    const [openedReport, setOpenedReport] = useState(false);
     const productCreate = new Date(product?.createdAt);
     const { user } = useContext(AuthContext);
     const [visible, setVisible] = useState(false);
@@ -17,7 +18,6 @@ const ProductSingleCard = ({ product }) => {
     // React hook form
     const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm();
     const handleCreateOrder = async (data) => {
-
         const orderDetails = data;
         orderDetails['photoUrl'] = product.photoUrl;
         orderDetails['productId'] = product._id;
@@ -69,7 +69,53 @@ const ProductSingleCard = ({ product }) => {
         }
     }
 
+    const { register: register2, handleSubmit: handleSubmit2, reset: reset2, formState: { errors: errors2 } } = useForm();
+    const storeReport = async (data) => {
+        const reportDetails = data;
+        reportDetails['productId'] = product._id;
+        reportDetails['productTitle'] = product.title;
+        reportDetails['photoUrl'] = product.photoUrl;
+        reportDetails['uid'] = user.uid;
+        reportDetails['reportTime'] = Date.now();
 
+
+        const uri = `${import.meta.env.VITE_serverUrl}/reportCreate/`;
+        const settings = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('refurbished')}` // JWToken
+            },
+            body: JSON.stringify(reportDetails)
+        };
+        try {
+            const fetchResponse = await fetch(uri, settings);
+            const data = await fetchResponse.json();
+            if (data.success) {
+                toast.success(data.message)
+                // now redirect to editing service page
+                setVisible(!visible);
+                setOpenedReport(false)
+                // navigate(from, { replace: true });
+
+            } else if (data.status === 401) {
+                toast.error(data.message)
+                setVisible(!visible);
+                setOpenedReport(false)
+                handleUserSignOut(); // un auth access, logout
+            }
+            else {
+                setVisible(!visible)
+                setOpenedReport(false)
+                toast.error(data.message)
+            }
+            setVisible(!visible)
+            setOpenedReport(false)
+        } catch (error) {
+            setVisible(!visible)
+            console.log(error);
+        }
+    }
     const inputClasses = "w-full text-xl px-3 py-3 border rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100";
     const labelClasses = "block mb-2 pt-1 text-sm text-slate-400";
 
@@ -125,6 +171,21 @@ const ProductSingleCard = ({ product }) => {
                     </div>
                 </div>
 
+                <div className='text-sm flex justify-between py-2 items-center border-b'>
+                    <div>
+                        Report to admin
+                    </div>
+
+                    <div>
+                        {user && user?.uid &&
+                            <Button variant="light" color="blue" fullWidth radius="md"
+                                onClick={() => setOpenedReport(true)}
+                            > Report
+                            </Button>
+                        }
+                    </div>
+                </div>
+
                 {user && user?.uid && !product?.isBooked ?
                     <Button variant="light" color="blue" fullWidth mt="md" radius="md"
                         onClick={() => setOpened(true)}
@@ -133,8 +194,38 @@ const ProductSingleCard = ({ product }) => {
                     :
                     (product?.isBooked ? <div className='text-center py-2 px-3'>Already Booked</div> : <div className='text-center py-2 px-3'>Please Login to Book</div>)
                 }
-
             </Card>
+            {/* Modal for report  */}
+            {
+                user && user?.uid &&
+                <Modal
+                    opened={openedReport}
+                    onClose={() => setOpenedReport(false)}
+                    title="Report Product"
+                    centered
+                >
+                    {/* Modal content */}
+                    <form onSubmit={handleSubmit2(storeReport)} className="space-y-4 ng-untouched ng-pristine ng-valid">
+                        <div>
+                            <label htmlFor="name">
+                                {product?.title}
+                            </label>
+                            <label htmlFor="name"
+                                className={labelClasses}>
+                                Report Description *
+                            </label>
+                            <textarea rows="10" cols="50"
+                                {...register("description",
+                                    { required: "Description is required" })} className={inputClasses} />
+                            {errors2.description &&
+                                <p className='text-red-400 text-right w-full'> <small>{errors2.description.message}</small> </p>}
+                        </div>
+                        <button type='submit' className='w-full py-4 bg-slate-700 hover:bg-red-800 text-white'>Report Now</button>
+                    </form>
+                </Modal>
+            }
+
+            {/* Modal for order      */}
 
             {
                 user && user?.uid && <Modal
@@ -203,13 +294,8 @@ const ProductSingleCard = ({ product }) => {
                             <button type='submit' className='w-full py-4 mt-2 bg-slate-700 hover:bg-red-800 text-white'>Book Now</button>
 
                             {/*  price(item name, price, and user information will not be editable) by default. You will give your phone number and meeting location */}
-
-
                         </div>
-
-
                     </form>
-
                 </Modal>
             }
 
