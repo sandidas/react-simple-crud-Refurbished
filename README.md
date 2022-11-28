@@ -25,8 +25,18 @@
 # Credits
 - 
 
+# Access:
+adminEmail: <admin@sandipandas.net>
+adminPassword: <SE!&bhd24./SE24>
 
+sellerEmail: <seller@sandipandas.net>
+adminPassword: <SE!&bhd24./SE24>
 
+buyerEmail: <buyer@sandipandas.net>
+adminPassword: <SE!&bhd24./SE24>
+
+# Live Website
+https://refurbished-d09bd.web.app
 - 
 
 # I'M:

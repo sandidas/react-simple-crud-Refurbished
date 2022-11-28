@@ -1,6 +1,6 @@
 import { async } from '@firebase/util';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import generatePassword from '../../Helpers/GeneratePassword';
 import useTitle from '../../Hooks/useTitle';
 import PrimaryButton from '../../Components/Buttons/PrimaryButton';
@@ -174,14 +174,7 @@ const Registration = () => {
     // check user logged in or not. if logged in then redirect to dashboard
 
     if (user && user?.uid) {
-        return (
-            <div className='flex flex-col space-y-4 items-center justify-center h-[60vh]'>
-                <div className='text-2xl text-pink-400'>
-                    {/* Logged-in users are not needed to register again. */}
-                    Redirecting....
-                </div>
-            </div>
-        )
+        return <Navigate to="/"></Navigate>
     }
 
     return (
