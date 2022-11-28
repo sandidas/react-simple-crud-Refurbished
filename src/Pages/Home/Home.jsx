@@ -35,6 +35,7 @@ const Home = () => {
                 isLoading ?
                     <SmallSpinner /> :
                     <HomeAdvertiseItems
+                        refetch={refetch}
                         advertisedProducts={advertisedProducts}
                     />
             }

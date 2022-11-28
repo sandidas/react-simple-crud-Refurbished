@@ -11,11 +11,11 @@ const Main = () => {
     return (
         <>
             <AppShell
-                header={<Header height={60} p="md"> <NavigationBar /> </Header>}
-                footer={<Footer p="md"> <MyFooter /> </Footer>}
+                header={<Header height={60} p="md"> <NavigationBar /> </Header>} 
             >
                 <Outlet></Outlet>
             </AppShell>
+            <MyFooter />
 
         </>
     );
