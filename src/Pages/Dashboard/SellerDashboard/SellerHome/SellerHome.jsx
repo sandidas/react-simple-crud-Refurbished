@@ -22,6 +22,7 @@ const SellerHome = () => {
     const [visible, setVisible] = useState(false);
 
 
+
     const checkImageSizeAndType = (e) => {
         const photoURL = e.target.files[0];
         // check image size and extension
@@ -66,6 +67,13 @@ const SellerHome = () => {
         productDetails['isPaid'] = false;
         console.log(productDetails, id);
 
+        setVisible(true)
+        await updateItem(productDetails, id);
+    }
+    const handleAdvertise = async (id, advertise = false) => {
+        const productDetails = {}
+        // setVisible(!visible)
+        productDetails['isAdvertise'] = advertise;
         setVisible(true)
         await updateItem(productDetails, id);
     }
@@ -165,6 +173,7 @@ const SellerHome = () => {
                                         setModalOpened={setModalOpened}
                                         modalData={modalData}
                                         setModalData={setModalData}
+                                        handleAdvertise={handleAdvertise}
 
                                     />
                                 )
@@ -327,14 +336,12 @@ const SellerHome = () => {
                                         Status *
                                     </label>
 
-                                    <select {...register("categorySlug")} className={inputClasses}>
+                                    <select {...register("status")} className={inputClasses}>
                                         <option value={modalData?.status}>{modalData?.status}</option>
                                         <option value="Available">Available</option>
                                         <option value="Sold Out">Sold Out</option>
                                     </select>
                                 </div>
-
-
                             </div>
                         </div>
                     </form>

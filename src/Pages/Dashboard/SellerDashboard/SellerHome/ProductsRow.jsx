@@ -1,7 +1,10 @@
-import { Avatar, Button } from '@mantine/core';
-import React from 'react';
+import { Avatar, Button, Switch } from '@mantine/core';
+import React, { useState } from 'react';
+import { IconCheck, IconX } from '@tabler/icons';
 
-const ProductsRow = ({ product, i, setModalOpened, setModalData }) => {
+const ProductsRow = ({ product, i, setModalOpened, setModalData, handleAdvertise }) => {
+    const [checked, setChecked] = useState(false);
+
 
     return (
         <tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900">
@@ -32,9 +35,20 @@ const ProductsRow = ({ product, i, setModalOpened, setModalData }) => {
             </td>
 
             <td className="p-3 text-right">
-                <Button className='bg-red-900'>
-                    Advertise
-                </Button>
+
+
+                {
+                    product.isAdvertise ? <Button
+                        onClick={() => { handleAdvertise(product?._id) }}
+                        className='bg-red-700'>
+                        Cancel Advertise
+                    </Button> : <Button
+                        onClick={() => { handleAdvertise(product?._id, true) }}
+                        className='bg-red-900'>
+                        Advertise
+                    </Button>
+                }
+
             </td>
         </tr>
     );
