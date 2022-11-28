@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import useTitle from '../../Hooks/useTitle';
 import PrimaryButton from '../../Components/Buttons/PrimaryButton';
 import OutlineButton from '../../Components/Buttons/OutlineButton';
@@ -72,6 +72,9 @@ const Login = () => {
                 const errors = error.message + ' | ' + error.code;
                 toast.error(errors);
             });
+    }
+    if (user && user?.uid) {
+        return <Navigate to="/"></Navigate>
     }
 
     return (
