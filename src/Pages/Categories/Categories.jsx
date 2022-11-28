@@ -50,31 +50,32 @@ const Categories = () => {
 
 
     return (
-        <section className='grid md:grid-cols-8 gap-5'>
-            <div className='col-span-2 flex flex-col space-y-5'>
-                {
-                    categoriesItems && categoriesItems.map((category, i) =>
-                        <button key={i}
-                            onClick={(event) => setProductId(category.slug)}
-                            className="text-left py-5 px-2 bg-gray-600 hover:bg-red-800"
-                        >
-                            {category?.title}
+        <section>
+            <div className='text-center py-10 font-bold'><h1>Products By Categories</h1></div>
 
-                        </button>
-                    )
-                }
+            <div className='grid md:grid-cols-8 gap-5'>
+                <div className='col-span-2 flex flex-col space-y-5'>
+                    {
+                        categoriesItems && categoriesItems.map((category, i) =>
+                            <button key={i}
+                                onClick={(event) => setProductId(category.slug)}
+                                className="text-left py-5 px-2 bg-gray-100 dark:bg-gray-600 hover:bg-red-800 hover:text-white"
+                            >
+                                {category?.title}
 
+                            </button>
+                        )
+                    }
+
+                </div>
+                <div className='col-span-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+                    {
+                        products && products.map(product =>
+                            <ProductSingleCard key={product?._id} product={product} />
+                        )
+                    }
+                </div>
             </div>
-            <div className='col-span-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-                {
-                    products && products.map(product =>
-                        <ProductSingleCard key={product?._id} product={product} />
-                    )
-                }
-            </div>
-
-
-
 
         </section>
     );

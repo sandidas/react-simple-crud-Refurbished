@@ -6,7 +6,7 @@ const useUserRole = (uid) => {
 
     useEffect(() => {
         if (uid) {
-            const urlApi = `http://localhost:5000/usertype/${uid}`;
+            const urlApi = `${import.meta.env.VITE_serverUrl}/usertype/${uid}`;
 
             fetch(urlApi)
                 .then(res => res.json())

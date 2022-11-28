@@ -76,7 +76,7 @@ const HomeCategories = () => {
                             </Group>
 
 
-                            <Link to={`/categories/${categories?.slug}`} className='w-full text-center bg-green-600'> Book Now   </Link>
+                            <Link to={`/categories/${categories?.slug}`} className='w-full text-center bg-red-600 px-3 py-2 text-white'> Visit Now   </Link>
                         </Card>
                     )
                 }

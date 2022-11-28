@@ -65,6 +65,7 @@ const ProductAdd = () => {
         productDetails['isAdvertise'] = false;
         productDetails['isReported'] = false;
         productDetails['isPaid'] = false;
+        productDetails['isBooked'] = false;
         const cateSlug = data.categoryName;
         productDetails['categorySlug'] = cateSlug.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
         // setLoading(true);
