@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import toast from 'react-hot-toast';
 import SmallSpinner from '../../Components/Spinner/SmallSpinner';
 import HomeAdvertiseItems from './HomeAdvertiseItems';
 import HomeBanner from './HomeBanner';
@@ -25,7 +26,7 @@ const Home = () => {
     }
 
     if (isError) {
-        return <span className='text-center'>Error: {error.message}</span>
+        toast.error(error.message);
     }
 
     return (
@@ -50,7 +51,7 @@ const Home = () => {
                                     <img src="https://sandipandas.net/assets/uploads/2021/07/Sandipan-Das-WordPress-and-Laravel-Expert.png" alt="" className="object-cover w-12 h-12 rounded-full dark:bg-gray-500" />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold">Leroy Jenkins</h4>
+                                    <h4 className="font-bold">Das Sandipan</h4>
                                     <span className="text-xs dark:text-gray-400">2 days ago</span>
                                 </div>
                             </div>
@@ -116,14 +117,7 @@ const Home = () => {
                                         <div className="dark:bg-orange-300 h-4 w-4/6"></div>
                                     </div>
                                     <span className="flex-shrink-0 w-12 text-sm text-right">67%</span>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                    <span className="flex-shrink-0 w-12 text-sm">3 star</span>
-                                    <div className="flex-1 h-4 overflow-hidden rounded-sm dark:bg-gray-700">
-                                        <div className="dark:bg-orange-300 h-4 w-3/6"></div>
-                                    </div>
-                                    <span className="flex-shrink-0 w-12 text-sm text-right">50%</span>
-                                </div>
+                                </div> 
                             </div>
                         </div>
                     </div>

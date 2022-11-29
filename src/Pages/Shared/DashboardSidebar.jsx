@@ -69,6 +69,7 @@ const DashboardSidebar = () => {
 
     return (
         <Box>
+            <div className='p-2 dark:bg-gray-700 dark:text-white font-bold'>{userRole} Dasboard </div>
             {
                 itemsRoleWise.map(item => (
                     <NavLink

@@ -109,11 +109,18 @@ const ProductSingleCard = ({ product, refetch }) => {
                 </div>
 
                 <div className='text-sm flex justify-end py-2 items-center border-b'>
-                    <span className='pr-1'> Sold by:  {product?.sellerName}  </span>
-                    <div className='bg-white p-1 rounded-md'>
-                        {product?.userVerified &&
-                            <IconCheckbox size={15} color="blue" />}
-                    </div>
+                    <span className='pr-1'> Sold by:
+                        {product?.sellerName || " Unknown Seller"}  </span>
+
+
+
+                    {product?.userVerified &&
+                        <div className='bg-white p-1 rounded-md'>
+                            <IconCheckbox size={15} color="blue" />
+                        </div>
+                    }
+
+
                 </div>
 
                 <div className='text-sm flex justify-between py-2 items-center border-b'>

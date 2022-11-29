@@ -40,7 +40,7 @@ const Login = () => {
                 const currentUser = {
                     email: email
                 }
-                await getJwtToken(currentUser);
+                await storeSingleUserWithJwt(user) // store login with generate jwt token
                 // token completed
                 toast.success("Logged in successfully.");
                 navigate(from, { replace: true });

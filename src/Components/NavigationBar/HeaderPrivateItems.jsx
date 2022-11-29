@@ -25,6 +25,7 @@ const HeaderPrivateItems = ({ user, userRole, handleUserSignout }) => {
                     </Indicator>
                 </Menu.Target>
                 <Menu.Dropdown>
+                    <Menu.Item> {user?.email} </Menu.Item>
                     <Menu.Item onClick={handleUserSignout} color="red" icon={<IconLogout size={14} />}>SignOut</Menu.Item>
                 </Menu.Dropdown>
             </Menu>

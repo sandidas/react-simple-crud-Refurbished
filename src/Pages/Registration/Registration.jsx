@@ -94,6 +94,7 @@ const Registration = () => {
                 const user = result.user;
                 // return
                 // 
+                console.log("data", data);
                 user['name'] = name;
                 user['password'] = password;
                 user['createdAt'] = Date.now();

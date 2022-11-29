@@ -6,7 +6,7 @@ export const storeSingleUserWithJwt = async (user) => {
 
     // check if the user is already existing
     const existUser = await checkUserExists(user);
-    if (existUser) {
+    if (existUser === true) {
         // user found and generate JWT token
         console.log("user Found");
         await getJwtToken(user);

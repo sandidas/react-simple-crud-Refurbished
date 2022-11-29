@@ -12,7 +12,7 @@ const categoriesItems = [
     {
         title: "MacBook Pro",
         image: MacbookAir,
-        slug: "macBook-pro"
+        slug: "macbook-pro"
     }, {
         title: "MacBook Air",
         image: MacbookPro,
@@ -63,7 +63,7 @@ const HomeCategories = () => {
 
                 {
                     categoriesItems.map((categories, i) =>
-                        <Card key={i} shadow="sm" p="lg" radius="md" withBorder>
+                        <Card key={i} shadow="sm" p="lg" radius="md" withBorder className='flex flex-col'>
                             <Card.Section component="a">
                                 <Image
                                     src={categories?.image}
@@ -76,7 +76,7 @@ const HomeCategories = () => {
                             </Group>
 
 
-                            <Link to={`/categories/${categories?.slug}`} className='w-full text-center bg-red-600 px-3 py-2 text-white'> Visit Now   </Link>
+                            <Link to={`/categories/${categories?.slug}`} className='w-full text-center bg-red-600 px-3 py-3 hover:bg-red-900 rounded-md text-white'> Visit Now   </Link>
                         </Card>
                     )
                 }
