@@ -1,9 +1,11 @@
-import { ColorSchemeProvider, MantineProvider } from '@mantine/core';
+import { ColorSchemeProvider, createEmotionCache, MantineProvider } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { checkCurrentTheme, setCurrentTheme } from '../Helpers/DarkLightTheme';
 
 const ThemeProvider = ({ children }) => {
     const [colorScheme, setColorScheme] = useState(false);
+    const myCache = createEmotionCache({ key: 'mantine' });
+
 
     // toggle dark and light mode
     useEffect(() => {
@@ -43,7 +45,7 @@ const ThemeProvider = ({ children }) => {
 
     return (
         <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme} >
-            <MantineProvider theme={{
+            <MantineProvider emotionCache={myCache} theme={{
                 colorScheme, fontSizes: {
                     xs: 16,
                     sm: 16,

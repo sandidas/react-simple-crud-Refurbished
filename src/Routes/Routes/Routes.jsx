@@ -21,6 +21,7 @@ import DashUsers from "../../Pages/Dashboard/AdminDashboard/DashUsers/DashUsers"
 import NotForLoggedInUser from "../NotForLoggedInUser/NotForLoggedInUser";
 import LayoutCommonDashboard from "../../Layouts/LayoutCommonDashboard/LayoutCommonDashboard";
 import DashboardHome from "../../Pages/Dashboard/DashboardHome";
+import AdminProducts from "../../Pages/Dashboard/AdminDashboard/AdminProducts/AdminProducts";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +117,9 @@ export const router = createBrowserRouter([
       }, {
         path: '/dashboard/admin/reports',
         element: <PrivateRoute><AllReport /></PrivateRoute>
+      }, {
+        path: '/dashboard/admin/products',
+        element: <PrivateRoute><AdminProducts /></PrivateRoute>
       }
 
     ]

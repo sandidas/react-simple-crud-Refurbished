@@ -1,5 +1,6 @@
 import { async } from '@firebase/util';
-import { Avatar, Button, Modal } from '@mantine/core';
+import { Avatar, Badge, Button, Modal } from '@mantine/core';
+import { IconCheck } from '@tabler/icons';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../Context/UserContext';
@@ -85,8 +86,9 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
                     <p> {oneUser?.email} </p>
                     <p className='text-gray-500'> <small> <i>{oneUser?.uid}</i> </small> </p>
                 </td>
-                <td className="p-3">
+                <td className="p-3 flex">
                     <Avatar src={oneUser?.photoURL} alt="it's me" />
+                    {oneUser?.sellerIsVerified && <Badge><IconCheck size={15} /></Badge>}
                 </td>
                 <td className="p-3">
                     <p> {oneUser?.name} </p>
@@ -95,20 +97,28 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
                     <p> {oneUser?.role} </p>
                 </td>
                 <td className="p-3 space-x-2">
-                    {
-                        user?.uid !== oneUser?.uid && <Button onClick={() => setOpened(true)} className="bg-red-800">
-                            Delete
-                        </Button>
-                    }
+                    <Button.Group>
+                        {
+                            user?.uid !== oneUser?.uid &&
+                            <Button color="pink" compact onClick={() => setOpened(true)}>
+                                Delete
+                            </Button>
+                        }
 
-                    {
-                        oneUser?.role === "Seller" &&
-                        <Button
-                            onClick={() => handleUserUpdate(!oneUser?.sellerIsVerified, oneUser?.uid)} className="bg-blue-600">
-                            {oneUser?.sellerIsVerified ? "UnVerify" : "Verify"}
-                        </Button>
+                        {
+                            oneUser?.role === "Seller" &&
+                            <Button compact
+                                onClick={() => handleUserUpdate(!oneUser?.sellerIsVerified, oneUser?.uid)} >
+                                {oneUser?.sellerIsVerified ? "Verified" : "Cancel Verification"}
+                            </Button>
 
-                    }
+                        }
+
+                    </Button.Group>
+
+
+
+
 
                 </td>
             </tr>
