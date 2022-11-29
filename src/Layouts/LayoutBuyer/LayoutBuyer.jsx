@@ -25,7 +25,7 @@ const LayoutBuyer = () => {
                 </Header>}
                 navbarOffsetBreakpoint="md"
                 navbar={
-                    <Navbar p='md' width={{ md: 250, lg: 300 }} hidden={!sideBarOpened} hiddenBreakpoint="md" className='bg-slate-100 dark:bg-slate-900' >
+                    <Navbar p='md' width={{ md: 200, lg: 300 }} hidden={!sideBarOpened} hiddenBreakpoint="md" className='bg-slate-100 dark:bg-slate-900' >
                         <DashboardSidebar />
                     </Navbar>
                 }

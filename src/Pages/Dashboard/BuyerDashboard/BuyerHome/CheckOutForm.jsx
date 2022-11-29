@@ -6,11 +6,11 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 
 const CheckOutForm = ({ order }) => {
+    const { productTitle, productId, productPrice, uid, buyerPhoneNumber } = order;
     const [clientSecret, setClientSecret] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const price = order.productPrice;
-    console.log({ price });
 
     useEffect(() => {
         const uri = `${import.meta.env.VITE_serverUrl}/create-payment-intent`;
@@ -57,7 +57,22 @@ const CheckOutForm = ({ order }) => {
         } else {
             console.log('[PaymentMethod]', paymentMethod);
         }
-        toast.success('Thanks for the payment')
+        const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: 'Jenny Rosen',
+                    },
+                },
+            },
+        );
+        if (confirmError) {
+            toast.error(confirmError);
+            console.log('confirmError: ', confirmError);
+        }
+        console.log('paymentIntent: ',paymentIntent);
 
     }
 

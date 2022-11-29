@@ -14,6 +14,9 @@ import AdminHome from "../../Pages/Dashboard/AdminDashboard/AdminHome/AdminHome"
 import ProductAdd from "../../Pages/Dashboard/SellerDashboard/ProductAdd/ProductAdd";
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 import Categories from "../../Pages/Categories/Categories";
+import AllSellers from "../../Pages/Dashboard/AdminDashboard/AllSellers/AllSellers";
+import AllReport from "../../Pages/Dashboard/AdminDashboard/AllReport/AllReport";
+import AllBuyers from "../../Pages/Dashboard/AdminDashboard/AllBuyers/AllBuyers";
 
 export const router = createBrowserRouter([
   {
@@ -77,13 +80,23 @@ export const router = createBrowserRouter([
   // =======================
   {
     path: '/dashboard/admin/',
-    element: <LayoutAdmin></LayoutAdmin>,
+    element: <PrivateRoute><LayoutAdmin></LayoutAdmin></PrivateRoute>,
     errorElement: <ErrorPage />,
     children: [
       {
         path: '/dashboard/admin/',
-        element: <AdminHome />
+        element: <PrivateRoute><AdminHome /></PrivateRoute>
+      }, {
+        path: '/dashboard/admin/sellers',
+        element: <PrivateRoute><AllSellers /></PrivateRoute>
+      }, {
+        path: '/dashboard/admin/buyers',
+        element: <PrivateRoute><AllBuyers /></PrivateRoute>
+      }, {
+        path: '/dashboard/admin/reports',
+        element: <PrivateRoute><AllReport /></PrivateRoute>
       }
+
     ]
   },
 ]);

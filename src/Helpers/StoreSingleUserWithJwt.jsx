@@ -1,7 +1,19 @@
 import generatePassword from "./GeneratePassword";
 import toast from 'react-hot-toast';
+import { async } from "@firebase/util";
 
 export const storeSingleUserWithJwt = async (user) => {
+
+    // check if the user is already existing
+    const existUser = await checkUserExists(user);
+    if (existUser) {
+        // user found and generate JWT token
+        console.log("user Found");
+        await getJwtToken(user);
+        return
+    }
+    console.log("Cross OVER :( ");
+
     let userPassword;
     if (!user.password) {
         userPassword = generatePassword();
@@ -11,7 +23,7 @@ export const storeSingleUserWithJwt = async (user) => {
     // StoreSingleUserWithJwtWithJwt
 
     const userInfo = {
-        name: user?.name || 'Unknown User',
+        name: user?.name || user?.displayName || 'Unknown User',
         email: user?.email || false,
         photoURL: user?.photoURL,
         role: user?.role || 'Buyer',
@@ -30,7 +42,6 @@ export const storeSingleUserWithJwt = async (user) => {
     }
     // since this function is for social login and form registration (not form login), So the only fresh new users are allowed to generate new password. Already existing users no need to create new password
     if (user?.createdAt) { userInfo['password'] = userPassword }
-
 
 
     const uri = `${import.meta.env.VITE_serverUrl}/user/${user?.uid}`;
@@ -56,6 +67,27 @@ export const storeSingleUserWithJwt = async (user) => {
     } catch (error) {
         console.log(error);
         return false
+    }
+}
+
+export const checkUserExists = async (user) => {
+    const uri = `${import.meta.env.VITE_serverUrl}/usertype/${user?.uid}`;
+    const settings = {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(location, settings);
+        const data = await fetchResponse.json();
+        if (data.success === true) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        toast.error("fail to communicate with server: Token")
     }
 }
 
