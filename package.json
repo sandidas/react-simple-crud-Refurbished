@@ -13,6 +13,8 @@
     "@lottiefiles/react-lottie-player": "^3.4.9",
     "@mantine/core": "^5.8.3",
     "@mantine/hooks": "^5.8.3",
+    "@stripe/react-stripe-js": "^1.15.0",
+    "@stripe/stripe-js": "^1.44.1",
     "@tabler/icons": "^1.113.0",
     "@tanstack/react-query": "^4.18.0",
     "firebase": "^9.14.0",
