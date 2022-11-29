@@ -1,16 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import { useContext } from 'react';
-import toast from 'react-hot-toast';
+import React, { useContext } from 'react';
 import DashboardUsersCell from '../../../../Components/DashboardUsersCell/DashboardUsersCell';
 import SmallSpinner from '../../../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../../../Context/UserContext';
 
-
-const AllBuyers = () => {
+const DashUsers = () => {
     const { user } = useContext(AuthContext);
     // Products loading
-    const uri = `${import.meta.env.VITE_serverUrl}/userByType?uid=${user?.uid}&role=Buyer`;
+    const uri = `${import.meta.env.VITE_serverUrl}/userByType?uid=${user?.uid}&role=all`;
     const settings = {
         method: 'GET',
         headers: {
@@ -24,10 +21,9 @@ const AllBuyers = () => {
             const res = await fetch(uri, settings);
             const data = await res.json();
             if (data.status === 401) {
-                toast.error(data.message);
-                console.log(data.message);
-            }
+                toast.error(data.message)
 
+            }
             return data.data;
         }
     })
@@ -42,7 +38,7 @@ const AllBuyers = () => {
     return (
         <section>
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
-                <h2 className="mb-4 text-2xl font-semibold leading-tight">All Buyers</h2>
+                <h2 className="mb-4 text-2xl font-semibold leading-tight">All Users</h2>
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-xs">
 
@@ -63,6 +59,9 @@ const AllBuyers = () => {
                                     refetch={refetch}
                                 />)
                             }
+
+
+
                         </tbody>
                     </table>
                 </div>
@@ -72,4 +71,4 @@ const AllBuyers = () => {
     );
 };
 
-export default AllBuyers;
+export default DashUsers;

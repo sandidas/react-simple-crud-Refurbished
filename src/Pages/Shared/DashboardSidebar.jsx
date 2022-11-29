@@ -1,5 +1,5 @@
 import { Box, Button, NavLink } from '@mantine/core';
-import { IconBasket, IconBuildingStore, IconDeviceWatchStats, IconListDetails, IconLogout, IconMessageReport } from '@tabler/icons';
+import { IconBasket, IconBuildingStore, IconDeviceWatchStats, IconListDetails, IconLogout, IconMessageReport, IconUsers } from '@tabler/icons';
 import React from 'react';
 import { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -58,6 +58,12 @@ const DashboardSidebar = () => {
             link: '/dashboard/admin/reports',
             label: 'Reported Items',
             icon: IconMessageReport,
+            typeof: 'Admin',
+        },
+        {
+            link: '/dashboard/admin/users',
+            label: 'All Users',
+            icon: IconUsers,
             typeof: 'Admin',
         }
     ]

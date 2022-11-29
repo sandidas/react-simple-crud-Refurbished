@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useRouteError } from "react-router-dom"; 
+import { Link, useRouteError } from "react-router-dom";
 
 import useTitle from '../../Hooks/useTitle';
 
@@ -11,7 +11,7 @@ const ErrorPage = () => {
 
     return (
         <>
-       
+
             {error &&
 
                 <section className="flex flex-col items-center h-full p-16 dark:bg-gray-900 dark:text-gray-100 min-h-[calc(100vh_-_50px)]">
@@ -29,6 +29,7 @@ const ErrorPage = () => {
                             <p className="text-2xl font-semibold md:text-3xl py-10">{error?.statusText || error?.status || error?.message}</p>
                             {/* <p className="mt-4 mb-8 dark:text-gray-400">{error?.status || error?.message}</p> */}
                             <Link to='/' className="px-8 py-3 font-semibold rounded dark:bg-yellow-400 dark:text-gray-900 hover:dark:bg-green-600 dark:hover:text-white bg-yellow-400 hover:bg-green-600 hover:text-white">Back to Homepage</Link>
+                            <Link to='/dashboard' className="px-8 py-3 font-semibold rounded dark:bg-yellow-400 dark:text-gray-900 hover:dark:bg-green-600 dark:hover:text-white bg-yellow-400 hover:bg-green-600 hover:text-white">Back to Dashboard</Link>
                         </div>
                     </div>
                 </section>

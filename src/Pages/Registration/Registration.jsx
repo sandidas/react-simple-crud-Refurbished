@@ -1,6 +1,6 @@
 import { async } from '@firebase/util';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import generatePassword from '../../Helpers/GeneratePassword';
 import useTitle from '../../Hooks/useTitle';
 import PrimaryButton from '../../Components/Buttons/PrimaryButton';
@@ -11,12 +11,12 @@ import { storeSingleUserWithJwt } from '../../Helpers/StoreSingleUserWithJwt';
 import toast from 'react-hot-toast';
 
 // react hook form 
-import { useForm } from "react-hook-form";  
+import { useForm } from "react-hook-form";
 import { AuthContext } from '../../Context/UserContext';
 
 const Registration = () => {
     useTitle('Registration')
-    const { user, createNewUser, updateUserProfile, verifyEmail, setLoading, loading, loginBySocialAccounts } = useContext(AuthContext);
+    const { user, createNewUser, updateUserProfile, verifyEmail, setLoading, loginBySocialAccounts } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [genPassword, setGenPassword] = useState('');
     const [password, setPassword] = useState('');
@@ -85,7 +85,7 @@ const Registration = () => {
                 setLoading(true);
                 // post image to image bb
                 const photoURL = await sendImgToImgBB(photo);
-                console.log(photoURL);
+                // console.log(photoURL);
                 // console.log(result);
                 await handleUpdateUserProfile(name, photoURL);// update user name and photo
                 // handleEmailVerification(); // send mail verification
@@ -94,7 +94,6 @@ const Registration = () => {
                 const user = result.user;
                 // return
                 // 
-                console.log("data", data);
                 user['name'] = name;
                 user['password'] = password;
                 user['createdAt'] = Date.now();
@@ -103,7 +102,7 @@ const Registration = () => {
                 // get/generate jwt token
                 setLoading(false);
                 toast.success("Successfully Registered!");
-                // navigate("/");
+                navigate('/dashboard');
             })
             .catch(error => {
                 // console.log(error);
@@ -151,8 +150,8 @@ const Registration = () => {
                 // setTimeout(() => {
                 //    
                 // }, 2000)
-                // navigate(from, { replace: true });
-                navigate("/");
+                navigate(from, { replace: true });
+                // navigate("/");
 
             })
             .catch((error) => {
@@ -174,9 +173,6 @@ const Registration = () => {
     const labelClasses = "block mb-2 text-sm text-slate-400";
     // check user logged in or not. if logged in then redirect to dashboard
 
-    if (user && user?.uid) {
-        return <Navigate to="/"></Navigate>
-    }
 
     return (
         <div className='grid grid-cols-1 xl:grid-cols-2 gap-5 place-content-center  xl:min-h-[90vh] mx-auto p-5'>

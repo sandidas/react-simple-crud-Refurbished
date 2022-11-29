@@ -12,8 +12,10 @@ const LayoutBuyer = () => {
     const [sideBarOpened, setSideBarOpened] = useState(false);
 
     if (loading || isRoleLoading) {
-        return <Loader />;
+        return <LoaderFull />;
     }
+
+
     if (userRole !== "Buyer") {
         return <Navigate to='/' state={{ from: location }} replace />;
     }

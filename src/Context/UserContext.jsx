@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, deleteUser, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth'
 import app from '../Helpers/Firebase.init';
 import useUserRole from '../Hooks/useUserRole';
 export const AuthContext = createContext({}); // context
@@ -12,11 +12,6 @@ const UserContext = ({ children }) => {
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-
-
-    // user role type type 
-    const [userRole, isRoleLoading] = useUserRole(user?.uid);
-    // user type 
 
     const googleProvider = new GoogleAuthProvider(); // google auth provider
     const gitHubProvider = new GithubAuthProvider(); // github auth provider
@@ -57,8 +52,10 @@ const UserContext = ({ children }) => {
         // setLoading(true);
         return signOut(auth);
     }
+
     // check user signed in or not 
     useEffect(() => {
+
         const unsSubscribe = onAuthStateChanged(auth, currentUser => {
             if (currentUser) {
                 setUser(currentUser);
@@ -72,6 +69,10 @@ const UserContext = ({ children }) => {
         return () => unsSubscribe();
 
     }, [auth])
+
+    // user role type type 
+    const [userRole, isRoleLoading] = useUserRole(user?.uid);
+    // user type 
 
 
 

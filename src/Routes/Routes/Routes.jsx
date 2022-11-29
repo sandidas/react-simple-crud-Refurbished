@@ -17,6 +17,10 @@ import Categories from "../../Pages/Categories/Categories";
 import AllSellers from "../../Pages/Dashboard/AdminDashboard/AllSellers/AllSellers";
 import AllReport from "../../Pages/Dashboard/AdminDashboard/AllReport/AllReport";
 import AllBuyers from "../../Pages/Dashboard/AdminDashboard/AllBuyers/AllBuyers";
+import DashUsers from "../../Pages/Dashboard/AdminDashboard/DashUsers/DashUsers";
+import NotForLoggedInUser from "../NotForLoggedInUser/NotForLoggedInUser";
+import LayoutCommonDashboard from "../../Layouts/LayoutCommonDashboard/LayoutCommonDashboard";
+import DashboardHome from "../../Pages/Dashboard/DashboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -29,10 +33,10 @@ export const router = createBrowserRouter([
         element: <Home />,
       }, {
         path: '/login/',
-        element: <Login />
+        element: <NotForLoggedInUser><Login /></NotForLoggedInUser>
       }, {
         path: '/register/',
-        element: <Registration />
+        element: <NotForLoggedInUser><Registration /></NotForLoggedInUser>
       },
       {
         path: '/blogs/',
@@ -45,15 +49,29 @@ export const router = createBrowserRouter([
     ],
   },
   // =======================
+  // Shared Dashboard 
+  // =======================
+  {
+    path: "/dashboard",
+    element: <PrivateRoute><LayoutCommonDashboard /></PrivateRoute>,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <PrivateRoute><DashboardHome /></PrivateRoute>
+      },
+    ],
+  },
+  // =======================
   // Seller Dashboard 
   // =======================
   {
-    path: "/dashboard/seller/",
+    path: "/dashboard/seller",
     element: <PrivateRoute><LayoutSeller></LayoutSeller></PrivateRoute>,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/dashboard/seller/",
+        path: "/dashboard/seller",
         element: <PrivateRoute><SellerHome /></PrivateRoute>
       }, {
         path: "/dashboard/seller/product/add",
@@ -92,6 +110,9 @@ export const router = createBrowserRouter([
       }, {
         path: '/dashboard/admin/buyers',
         element: <PrivateRoute><AllBuyers /></PrivateRoute>
+      }, {
+        path: '/dashboard/admin/users',
+        element: <PrivateRoute><DashUsers /></PrivateRoute>
       }, {
         path: '/dashboard/admin/reports',
         element: <PrivateRoute><AllReport /></PrivateRoute>

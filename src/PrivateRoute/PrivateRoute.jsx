@@ -1,18 +1,13 @@
-import { Loader } from '@mantine/core';
+import { LoadingOverlay } from '@mantine/core';
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Context/UserContext';
 
 //=====================================
 //
-//
-//
 // THIS ROUTE ONLY FOR CLIENTs TYPE OF USER
 // WE HAVE 3 KINDS OF USER TYPE
 // guest (visitors), client, & Admin
-//
-//
-//
 //
 //=====================================
 const PrivateRoute = ({ children }) => {
@@ -22,7 +17,13 @@ const PrivateRoute = ({ children }) => {
 
 
     if (loading) {
-        return <Loader variant='bars' color="white" className='mx-auto min-h-[-calc(100vh_-_681)] sm:min-h-[calc(100vh_-_659px)] md:min-h-[calc(100vh_-_601px)]' />
+        return <LoadingOverlay
+        loaderProps={{ size: 'md', color: 'pink', variant: 'bars' }}
+        overlayOpacity={0}
+        overlayBlur={2}
+        overlayColor="#c5c5c5"
+        visible
+    />
     }
     if (user && user?.uid) {
         return children

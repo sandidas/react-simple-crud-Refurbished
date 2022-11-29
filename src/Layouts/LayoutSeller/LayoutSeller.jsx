@@ -1,8 +1,7 @@
 import { AppShell, Footer, Header, Navbar } from '@mantine/core';
 import React, { useContext, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import MyFooter from '../../Components/Footer/MyFooter';
-import Loader from '../../Components/Loader/Loader';
+import LoaderFull from '../../Components/LoaderFull/LoaderFull';
 import NavigationBar from '../../Components/NavigationBar/NavigationBar';
 import { AuthContext } from '../../Context/UserContext';
 import DashboardSidebar from '../../Pages/Shared/DashboardSidebar';
@@ -14,11 +13,13 @@ const LayoutSeller = () => {
     const [sideBarOpened, setSideBarOpened] = useState(false);
 
     if (loading || isRoleLoading) {
-        return <Loader />;
+        return <LoaderFull />;
     }
+
     if (userRole !== "Seller") {
-        return <Navigate to='/' state={{ from: location }} replace />;
+        return <Navigate to='/dashboard' state={{ from: location }} replace />;
     }
+    console.log(userRole);
     return (
         <>
             <AppShell

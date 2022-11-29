@@ -11,6 +11,7 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
 
     const handleUserDelete = async (userData) => {
         const toDeleteUser = userData?.uid;
+
         const uri = `${import.meta.env.VITE_serverUrl}/deleteUser?uid=${user?.uid}&role=${userRole}&toDeleteUser=${toDeleteUser}`;
         const settings = {
             method: 'DELETE',

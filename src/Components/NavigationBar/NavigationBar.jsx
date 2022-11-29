@@ -139,6 +139,7 @@ const NavigationBar = ({ sideBarOpened, setSideBarOpened }) => {
                 </Group>
                 <div className='flex items-center'>
                     <SwitchDarkLight />
+                    
                     {/* Menu items for logged in users only  */}
                     {user?.uid && <HeaderPrivateItems userRole={userRole} user={user} handleUserSignout={handleUserSignout} />}
                     {!user?.uid && <Button variant="default" component={Link} to='/login/'  > login </Button>}

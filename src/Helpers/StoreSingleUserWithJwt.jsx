@@ -3,16 +3,14 @@ import toast from 'react-hot-toast';
 import { async } from "@firebase/util";
 
 export const storeSingleUserWithJwt = async (user) => {
-
     // check if the user is already existing
     const existUser = await checkUserExists(user);
     if (existUser === true) {
         // user found and generate JWT token
-        console.log("user Found");
+        // console.log("user Found");
         await getJwtToken(user);
-        return
+        return;
     }
-    console.log("Cross OVER :( ");
 
     let userPassword;
     if (!user.password) {
@@ -43,7 +41,6 @@ export const storeSingleUserWithJwt = async (user) => {
     // since this function is for social login and form registration (not form login), So the only fresh new users are allowed to generate new password. Already existing users no need to create new password
     if (user?.createdAt) { userInfo['password'] = userPassword }
 
-
     const uri = `${import.meta.env.VITE_serverUrl}/user/${user?.uid}`;
     const settings = {
         method: 'PUT',
@@ -58,20 +55,22 @@ export const storeSingleUserWithJwt = async (user) => {
         if (data.success === true) {
             // store jwt token in local storage
             localStorage.setItem('refurbished', data.token);
-            return true
+            return true;
         } else if (data.success === false) {
+            toast.error("SSUFRF");
             return false;
         } else {
-            return false
+            toast.error("ERRO0176");
+            return false;
         }
     } catch (error) {
-        console.log(error);
-        return false
+        toast.error("TRYF98745");
+        return false;
     }
 }
 
 export const checkUserExists = async (user) => {
-    const uri = `${import.meta.env.VITE_serverUrl}/usertype/${user?.uid}`;
+    const uri = `${import.meta.env.VITE_serverUrl}/singleuser/${user?.uid}`;
     const settings = {
         method: 'GET',
         headers: {
@@ -79,7 +78,7 @@ export const checkUserExists = async (user) => {
         }
     };
     try {
-        const fetchResponse = await fetch(location, settings);
+        const fetchResponse = await fetch(uri, settings);
         const data = await fetchResponse.json();
         if (data.success === true) {
             return true;
@@ -87,7 +86,7 @@ export const checkUserExists = async (user) => {
             return false;
         }
     } catch (error) {
-        toast.error("fail to communicate with server: Token")
+        toast.error("Communicate fail! 202145674")
     }
 }
 

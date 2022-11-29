@@ -6,6 +6,7 @@ import { AuthContext } from '../../../../Context/UserContext';
 
 const AllSellers = () => {
     const { user } = useContext(AuthContext);
+    console.log(user);
     // Products loading
     const uri = `${import.meta.env.VITE_serverUrl}/userByType?uid=${user?.uid}&role=Seller`;
     const settings = {
@@ -15,7 +16,7 @@ const AllSellers = () => {
             authorization: `Bearer ${localStorage.getItem('refurbished')}`
         }
     };
-    const { data, refetch, isLoading, isError, error } = useQuery({
+    const { data = [], refetch, isLoading, isError, error } = useQuery({
         queryKey: ['users'], // when user change the date it will re-fetch 
         queryFn: async () => {
             const res = await fetch(uri, settings);
@@ -53,7 +54,7 @@ const AllSellers = () => {
                         </thead>
                         <tbody>
                             {
-                                data && data.map((oneUser, i) => <DashboardUsersCell
+                                data && data?.map((oneUser, i) => <DashboardUsersCell
                                     oneUser={oneUser}
                                     key={i}
                                     refetch={refetch}

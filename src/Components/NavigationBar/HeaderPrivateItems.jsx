@@ -2,13 +2,14 @@ import { Avatar, UnstyledButton, Indicator, Menu, Text, Button } from '@mantine/
 import React from 'react';
 import { IconLogout } from '@tabler/icons';
 import { Link } from 'react-router-dom';
+const HeaderPrivateItems = ({ user, handleUserSignout }) => {
 
-const HeaderPrivateItems = ({ user, userRole, handleUserSignout }) => {
+    // const dashboardLink = userRole === "Seller" && "/dashboard/seller/" || userRole === "Buyer" && "/dashboard/buyer/" || userRole === "Admin" && "/dashboard/admin/";
 
-    const dashboardLink = userRole === "Seller" && "/dashboard/seller/" || userRole === "Buyer" && "/dashboard/buyer/" || userRole === "Admin" && "/dashboard/admin/";
+
     return (
         <div className='flex items-center gap-2'>
-            <Button variant="default" component={Link} to={dashboardLink}  > Dashboard </Button>
+            <Button variant="default" component={Link} to='/dashboard/'> Dashboard </Button>
 
             <Button variant="default" onClick={handleUserSignout} > <IconLogout size={14} /> </Button>
 
