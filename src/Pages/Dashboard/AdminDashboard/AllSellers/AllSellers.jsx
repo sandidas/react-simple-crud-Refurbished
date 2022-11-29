@@ -6,7 +6,6 @@ import { AuthContext } from '../../../../Context/UserContext';
 
 const AllSellers = () => {
     const { user } = useContext(AuthContext);
-    console.log(user);
     // Products loading
     const uri = `${import.meta.env.VITE_serverUrl}/userByType?uid=${user?.uid}&role=Seller`;
     const settings = {

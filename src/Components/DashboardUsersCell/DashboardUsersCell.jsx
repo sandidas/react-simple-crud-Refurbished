@@ -6,7 +6,9 @@ import { AuthContext } from '../../Context/UserContext';
 
 const DashboardUsersCell = ({ oneUser, refetch }) => {
     const [opened, setOpened] = useState(false);
-    const { user, userRole } = useContext(AuthContext)
+    const { user, userRole } = useContext(AuthContext);
+    const [sellerVerified, serSellerVerified] = useState(oneUser.sellerIsVerified);
+
 
 
     const handleUserDelete = async (userData) => {
@@ -41,7 +43,40 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
         }
     }
 
-
+    const handleUserUpdate = async (status, userUid) => {
+        console.log(status);
+        console.log(userUid);
+        const userInformation = {
+            sellerIsVerified: status,
+        }
+        const uri = `${import.meta.env.VITE_serverUrl}/userEdit?uid=${user?.uid}&toUpdateUser=${userUid}`;
+        const settings = {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('refurbished')}`
+            }, body: JSON.stringify(userInformation)
+        };
+        try {
+            const fetchResponse = await fetch(uri, settings);
+            const data = await fetchResponse.json();
+            if (data.success === true) {
+                setOpened(false)
+                refetch();
+                toast.success("User Updated Successfully");
+            } else if (data.success === false) {
+                setOpened(false)
+                toast.error(data.message)
+            } else {
+                setOpened(false)
+                toast.error(data.message)
+            }
+        } catch (error) {
+            setOpened(false)
+            // console.log(error);
+            toast.error(data.message)
+        }
+    }
 
     return (
         <>
@@ -51,7 +86,7 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
                     <p className='text-gray-500'> <small> <i>{oneUser?.uid}</i> </small> </p>
                 </td>
                 <td className="p-3">
-                    <Avatar src={oneUser?.photoUrl} alt="it's me" />
+                    <Avatar src={oneUser?.photoURL} alt="it's me" />
                 </td>
                 <td className="p-3">
                     <p> {oneUser?.name} </p>
@@ -59,10 +94,22 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
                 <td className="p-3">
                     <p> {oneUser?.role} </p>
                 </td>
-                <td className="p-3">
-                    <Button onClick={() => setOpened(true)} className="bg-red-800">
-                        Delete
-                    </Button>
+                <td className="p-3 space-x-2">
+                    {
+                        user?.uid !== oneUser?.uid && <Button onClick={() => setOpened(true)} className="bg-red-800">
+                            Delete
+                        </Button>
+                    }
+
+                    {
+                        oneUser?.role === "Seller" &&
+                        <Button
+                            onClick={() => handleUserUpdate(!oneUser?.sellerIsVerified, oneUser?.uid)} className="bg-blue-600">
+                            {oneUser?.sellerIsVerified ? "UnVerify" : "Verify"}
+                        </Button>
+
+                    }
+
                 </td>
             </tr>
 
