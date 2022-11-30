@@ -79,6 +79,43 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
         }
     }
 
+
+    const handleUserMakeAdmin = async (userUid) => {
+        const userInformation = {
+            role: "Admin",
+            is_admin: true,
+        }
+        const uri = `${import.meta.env.VITE_serverUrl}/userEdit?uid=${user?.uid}&toUpdateUser=${userUid}`;
+        const settings = {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('refurbished')}`
+            }, body: JSON.stringify(userInformation)
+        };
+        try {
+            const fetchResponse = await fetch(uri, settings);
+            const data = await fetchResponse.json();
+            if (data.success === true) {
+                setOpened(false)
+                refetch();
+                toast.success("User Updated Successfully");
+            } else if (data.success === false) {
+                setOpened(false)
+                toast.error(data.message)
+            } else {
+                setOpened(false)
+                toast.error(data.message)
+            }
+        } catch (error) {
+            setOpened(false)
+            // console.log(error);
+            toast.error(data.message)
+        }
+    }
+
+
+
     return (
         <>
             <tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900">
@@ -120,6 +157,16 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
 
                         }
 
+                        {/* make admin  */}
+
+                        {
+                            userRole === "Admin" && oneUser?.role !== "Admin" &&
+                            <Button color="orange" compact onClick={() => handleUserMakeAdmin(oneUser?.uid)} >
+                                Make Admin
+                            </Button>
+
+                        }
+
                     </Button.Group>
 
 
@@ -144,7 +191,6 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
                     <Button color="white" className='bg-gray-500' onClick={() => setOpened(false)}>
                         Cancel
                     </Button>
-
                 </div>
             </Modal>
 

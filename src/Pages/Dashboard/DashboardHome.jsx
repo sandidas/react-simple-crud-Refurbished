@@ -10,29 +10,24 @@ const DashboardHome = () => {
     // Products loading 
 
     useEffect(() => {
+        setLoading(true)
         const url = `${import.meta.env.VITE_serverUrl}/singleuser/${user?.uid}`;
 
         const fetchDataFromApi = async () => {
             try {
                 const res = await fetch(url);
                 const data = await res.json();
-                setIam(data.result);
+                setIam(data.data);
                 setLoading(false);
             } catch (error) {
-                console.log(error);
                 showAlert('danger', 'Data not found from API Call');
                 setLoading(false);
             }
-
         };
         fetchDataFromApi();
-        //setLoading(true);
+        setLoading(false)
 
     }, []);
-
-  
-
-
 
     // console.log(user);
     if (loading) {
@@ -52,13 +47,12 @@ const DashboardHome = () => {
 
                 <p className='py-3'> <strong>Short Summery of your account:</strong> </p>
                 <ul>
-                    <li>Name {iam?.name}</li>
-                    <li>Role {iam?.role}</li>
-                    <li>sellerIsVerified {iam?.sellerIsVerified}</li>
-                    <li>email {iam?.email}</li>
-                    <li>Admin: {iam?.is_admin ? 'True' : 'False'}</li>
-                    <li>uid {iam?.uid}</li>
-                    <li>uid {iam?.uid}</li>
+                    <li> <strong>Name: </strong> {iam?.name}</li>
+                    <li> <strong>Role: </strong> {iam?.role}</li>
+                    <li> <strong>Seller Verified</strong> {iam?.sellerIsVerified}</li>
+                    <li> <strong>Email:</strong> {iam?.email}</li>
+                    <li> <strong>Admin:</strong> {iam?.is_admin ? 'True' : 'False'}</li>
+                    <li> <strong>#</strong> {iam?.uid}</li>
                 </ul>
             </div>
         </div>

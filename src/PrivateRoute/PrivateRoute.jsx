@@ -14,9 +14,6 @@ const PrivateRoute = ({ children }) => {
     const { user, loading, userRole, isRoleLoading  } = useContext(AuthContext);
     const location = useLocation();
 
-    console.log(loading);
-
-
     if (loading) {
         return <LoadingOverlay
         loaderProps={{ size: 'md', color: 'pink', variant: 'bars' }}

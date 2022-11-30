@@ -40,9 +40,7 @@ const Categories = () => {
             return data.data;
         }
     })
-    if (isLoading) {
-        return <SmallSpinner />
-    }
+   
 
     if (isError) {
         return <span className='text-center'>Error: {error.message}</span>
@@ -51,15 +49,16 @@ const Categories = () => {
 
     return (
         <section>
-            <div className='text-center py-10 font-bold'><h1>Products By Categories</h1></div>
+            <div className='text-center py-10 font-bold'><h1>Products By Categories</h1>
+            </div>
 
             <div className='grid md:grid-cols-8 gap-5'>
-                <div className='col-span-2 flex flex-col space-y-5'>
+                <div className='col-span-2 flex flex-col space-y-3 items-start'>
                     {
                         categoriesItems && categoriesItems.map((category, i) =>
                             <button key={i}
                                 onClick={(event) => setProductId(category.slug)}
-                                className="text-left py-5 px-2 bg-gray-100 dark:bg-gray-600 hover:bg-red-800 hover:text-white"
+                                className="text-left w-full py-4 px-3 rounded-lg bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 hover:text-black"
                             >
                                 {category?.title}
 
@@ -69,11 +68,12 @@ const Categories = () => {
 
                 </div>
                 <div className='col-span-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-                    {
+                    { isLoading ? <SmallSpinner /> :
                         products && products.map(product =>
                             <ProductSingleCard key={product?._id} product={product} refetch={refetch} />
                         )
                     }
+                    
                 </div>
             </div>
 

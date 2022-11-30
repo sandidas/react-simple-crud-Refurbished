@@ -1,6 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import toast from 'react-hot-toast';
 import SmallSpinner from '../../Components/Spinner/SmallSpinner';
 import HomeAdvertiseItems from './HomeAdvertiseItems';
 import HomeBanner from './HomeBanner';
@@ -9,37 +7,12 @@ import HomeCategories from './HomeCategories';
 const Home = () => {
 
 
-    // Featch advertise items 
-    // Products loading
-    const uri = `${import.meta.env.VITE_serverUrl}/productsAdvertised/`;
-    const { data: advertisedProducts = [], refetch, isLoading, isError, error } = useQuery({
-        queryKey: ['advertisedProducts'], // when user change the date it will re-fetch 
 
-        queryFn: async () => {
-            const res = await fetch(uri);
-            const data = await res.json();
-            return data.data;
-        }
-    })
-    if (isLoading) {
-        return <SmallSpinner />
-    }
-
-    if (isError) {
-        toast.error(error.message);
-    }
 
     return (
         <>
             <HomeBanner />
-            {
-                isLoading ?
-                    <SmallSpinner /> :
-                    <HomeAdvertiseItems
-                        refetch={refetch}
-                        advertisedProducts={advertisedProducts}
-                    />
-            }
+            <HomeAdvertiseItems />
             <HomeCategories />
 
             <section className='grid grid-cols-5 gap-5 pt-10'>
@@ -117,7 +90,7 @@ const Home = () => {
                                         <div className="dark:bg-orange-300 h-4 w-4/6"></div>
                                     </div>
                                     <span className="flex-shrink-0 w-12 text-sm text-right">67%</span>
-                                </div> 
+                                </div>
                             </div>
                         </div>
                     </div>

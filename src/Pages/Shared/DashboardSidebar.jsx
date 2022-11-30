@@ -22,11 +22,11 @@ const DashboardSidebar = () => {
             subItems: [
                 {
                     link: '/dashboard/seller/product/add',
-                    label: 'Add product',
+                    label: 'Add Product',
                 },
                 {
                     link: '/dashboard/seller/',
-                    label: 'Products',
+                    label: 'My Products',
                 },
             ],
         },
@@ -81,7 +81,7 @@ const DashboardSidebar = () => {
 
     return (
         <Box>
-            <div className='p-2 dark:bg-gray-700 dark:text-white font-bold'>{userRole} Dasboard </div>
+            <Link to='/dashboard' className='p-2 font-bold'>{userRole} Dasboard </Link>
             {
                 itemsRoleWise.map(item => (
                     <NavLink

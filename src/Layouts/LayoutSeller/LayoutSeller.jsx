@@ -19,7 +19,7 @@ const LayoutSeller = () => {
     if (userRole !== "Seller") {
         return <Navigate to='/dashboard' state={{ from: location }} replace />;
     }
-    console.log(userRole);
+
     return (
         <>
             <AppShell
