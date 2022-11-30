@@ -1,4 +1,4 @@
-import { Loader, LoadingOverlay } from '@mantine/core';
+import { LoadingOverlay } from '@mantine/core';
 import React from 'react';
 
 const LoaderFull = () => {

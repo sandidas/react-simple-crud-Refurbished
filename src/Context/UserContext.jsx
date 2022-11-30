@@ -18,12 +18,12 @@ const UserContext = ({ children }) => {
 
     // form login
     const loginByEmailAndPassword = (email, password) => {
-        setLoading(true);
+        // setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
     // social logins
     const loginBySocialAccounts = (loginType) => {
-        setLoading(true);
+        // setLoading(true);
         if (loginType == 'google') {
             return signInWithPopup(auth, googleProvider);
         }
@@ -33,7 +33,7 @@ const UserContext = ({ children }) => {
     }
     // create new user by g. firebase
     const createNewUser = (email, password) => {
-        setLoading(true);
+        // setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
     const updateUserProfile = (profile) => {

@@ -11,12 +11,13 @@ import { AuthContext } from '../Context/UserContext';
 //
 //=====================================
 const PrivateRoute = ({ children }) => {
-    const { user, loading } = useContext(AuthContext);
+    const { user, loading, userRole, isRoleLoading  } = useContext(AuthContext);
     const location = useLocation();
 
+    console.log(loading);
 
 
-    if (loading) {
+    if (loading || !userRole || isRoleLoading) {
         return <LoadingOverlay
         loaderProps={{ size: 'md', color: 'pink', variant: 'bars' }}
         overlayOpacity={0}

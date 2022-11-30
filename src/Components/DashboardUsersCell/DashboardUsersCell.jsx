@@ -1,5 +1,5 @@
 import { async } from '@firebase/util';
-import { Avatar, Badge, Button, Modal } from '@mantine/core';
+import { Avatar, Badge, Button, Indicator, Modal } from '@mantine/core';
 import { IconCheck } from '@tabler/icons';
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -87,8 +87,14 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
                     <p className='text-gray-500'> <small> <i>{oneUser?.uid}</i> </small> </p>
                 </td>
                 <td className="p-3 flex">
-                    <Avatar src={oneUser?.photoURL} alt="it's me" />
-                    {oneUser?.sellerIsVerified && <Badge><IconCheck size={15} /></Badge>}
+
+                    <Indicator inline label={oneUser?.sellerIsVerified && <IconCheck size={10} />} size={12}>
+                        <Avatar src={oneUser?.photoURL} alt="it's me" />
+
+                    </Indicator>
+
+
+
                 </td>
                 <td className="p-3">
                     <p> {oneUser?.name} </p>
@@ -109,7 +115,7 @@ const DashboardUsersCell = ({ oneUser, refetch }) => {
                             oneUser?.role === "Seller" &&
                             <Button compact
                                 onClick={() => handleUserUpdate(!oneUser?.sellerIsVerified, oneUser?.uid)} >
-                                {oneUser?.sellerIsVerified ? "Verified" : "Cancel Verification"}
+                                {oneUser?.sellerIsVerified ? "Cancel Verification" : "Verify Now"}
                             </Button>
 
                         }

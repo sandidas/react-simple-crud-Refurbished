@@ -28,6 +28,7 @@ const AdminProducts = () => {
             return data.data;
         }
     })
+    console.log(data);
 
     if (isLoading) {
         return <SmallSpinner />
@@ -54,15 +55,16 @@ const AdminProducts = () => {
                             </tr>
                         </thead>
                         <tbody>
+
                             {
-                                data && data?.map((oneUser, i) => <AdminProductsCell
-                                    oneUser={oneUser}
+                                data && data?.map((product, i) => <AdminProductsCell
+                                    product={product}
                                     key={i}
                                     refetch={refetch}
+                                    user={user}
+                                    
                                 />)
                             }
-
-
 
                         </tbody>
                     </table>

@@ -53,13 +53,13 @@ export const router = createBrowserRouter([
   // Shared Dashboard 
   // =======================
   {
-    path: "/dashboard",
+    path: "/dashboard/",
     element: <PrivateRoute><LayoutCommonDashboard /></PrivateRoute>,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/dashboard",
-        element: <PrivateRoute><DashboardHome /></PrivateRoute>
+        path: "/dashboard/",
+        element: <DashboardHome />
       },
     ],
   },

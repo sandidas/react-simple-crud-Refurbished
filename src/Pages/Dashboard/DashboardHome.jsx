@@ -26,10 +26,11 @@ const DashboardHome = () => {
 
         };
         fetchDataFromApi();
-        setLoading(true);
+        //setLoading(true);
 
     }, []);
 
+  
 
 
 

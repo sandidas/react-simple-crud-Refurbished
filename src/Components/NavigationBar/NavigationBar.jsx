@@ -92,12 +92,12 @@ const NavigationBar = ({ sideBarOpened, setSideBarOpened }) => {
     const handleUserSignout = () => {
         userSignOut()
             .then(() => {
-                setLoading(false);
+                // setLoading(false);
                 toast.success('Log out successfully');
                 return navigate('/login');
             })
             .catch((error) => {
-                setLoading(false);
+                // setLoading(false);
                 const errors = error.message + ' | ' + error.code;
                 toast.error(errors);
                 console.log('error');
