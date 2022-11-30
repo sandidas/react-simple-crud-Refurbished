@@ -82,7 +82,7 @@ const Registration = () => {
         // call g.firebase by context to store in firebase
         createNewUser(email, password)
             .then(async result => {
-                setLoading(true);
+                // setLoading(true);
                 // post image to image bb
                 const photoURL = await sendImgToImgBB(photo);
                 // console.log(photoURL);

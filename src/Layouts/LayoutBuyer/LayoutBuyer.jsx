@@ -1,8 +1,8 @@
 import { AppShell, Header, Navbar } from '@mantine/core';
 import React, { useContext, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import LoaderFull from '../../Components/LoaderFull/LoaderFull';
 import NavigationBar from '../../Components/NavigationBar/NavigationBar';
+import SmallSpinner from '../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../Context/UserContext';
 import DashboardSidebar from '../../Pages/Shared/DashboardSidebar';
 
@@ -12,7 +12,7 @@ const LayoutBuyer = () => {
     const [sideBarOpened, setSideBarOpened] = useState(false);
 
     if (loading || isRoleLoading) {
-        return <LoaderFull />;
+        return <SmallSpinner />;
     }
 
 

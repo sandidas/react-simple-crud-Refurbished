@@ -11,6 +11,7 @@ const LoaderFull = () => {
             overlayColor="#c5c5c5"
             visible
         />
+
     );
 };
 
