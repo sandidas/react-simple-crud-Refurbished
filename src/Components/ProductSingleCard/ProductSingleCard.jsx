@@ -24,7 +24,8 @@ const ProductSingleCard = ({ product, refetch }) => {
         orderDetails['uid'] = user.uid;
         orderDetails['orderTime'] = Date.now();
         orderDetails['transactionId'] = false;
-        console.log(orderDetails);
+        orderDetails['paymentStatus'] = false;
+        // console.log(orderDetails);
         // setLoading(true);
         await storeItem(orderDetails)
     }
@@ -80,7 +81,7 @@ const ProductSingleCard = ({ product, refetch }) => {
                 <Card.Section component="a" link="/">
                     <Image
                         src={product?.photoUrl}
-                        height={160}
+                        height={280}
                         alt="Norway"
                     />
                 </Card.Section>

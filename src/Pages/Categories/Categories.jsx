@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ProductSingleCard from '../../Components/ProductSingleCard/ProductSingleCard';
 import SmallSpinner from '../../Components/Spinner/SmallSpinner';
+import useTitle from '../../Hooks/useTitle';
 
 const categoriesItems = [
     {
         title: "MacBook Pro",
-        slug: "macBook-pro"
+        slug: "macbook-pro"
     }, {
         title: "MacBook Air",
         slug: "macbook-air"
@@ -27,6 +28,7 @@ const categoriesItems = [
 
 
 const Categories = () => {
+    useTitle('Product Categories');
     const { id } = useParams();
     const [productId, setProductId] = useState(id);
     // fetch by categories 
@@ -42,9 +44,9 @@ const Categories = () => {
     })
    
 
-    if (isError) {
-        return <span className='text-center'>Error: {error.message}</span>
-    }
+    // if (isError) {
+    //     return <span className='text-center'>Error: {error.message}</span>
+    // }
 
 
     return (
@@ -68,7 +70,7 @@ const Categories = () => {
 
                 </div>
                 <div className='col-span-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-                    { isLoading ? <SmallSpinner /> :
+                    { isLoading || isError ? <SmallSpinner /> :
                         products && products.map(product =>
                             <ProductSingleCard key={product?._id} product={product} refetch={refetch} />
                         )

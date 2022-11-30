@@ -3,8 +3,10 @@ import React, { useContext } from 'react';
 import DashboardUsersCell from '../../../../Components/DashboardUsersCell/DashboardUsersCell';
 import SmallSpinner from '../../../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../../../Context/UserContext';
+import useTitle from '../../../../Hooks/useTitle';
 
 const AllSellers = () => {
+    useTitle('All Sellers');
     const { user } = useContext(AuthContext);
     // Products loading
     const uri = `${import.meta.env.VITE_serverUrl}/userByType?uid=${user?.uid}&role=Seller`;

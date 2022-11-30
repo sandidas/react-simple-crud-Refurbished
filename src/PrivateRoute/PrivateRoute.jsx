@@ -1,6 +1,7 @@
 import { LoadingOverlay } from '@mantine/core';
 import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import SmallSpinner from '../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../Context/UserContext';
 
 //=====================================
@@ -11,17 +12,11 @@ import { AuthContext } from '../Context/UserContext';
 //
 //=====================================
 const PrivateRoute = ({ children }) => {
-    const { user, loading, userRole, isRoleLoading  } = useContext(AuthContext);
+    const { user, loading, userRole, isRoleLoading } = useContext(AuthContext);
     const location = useLocation();
 
     if (loading) {
-        return <LoadingOverlay
-        loaderProps={{ size: 'md', color: 'pink', variant: 'bars' }}
-        overlayOpacity={0}
-        overlayBlur={2}
-        overlayColor="#c5c5c5"
-        visible
-    />
+        return <SmallSpinner />
     }
     if (user && user?.uid) {
         return children

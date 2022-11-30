@@ -5,9 +5,11 @@ import toast from 'react-hot-toast';
 import DashboardUsersCell from '../../../../Components/DashboardUsersCell/DashboardUsersCell';
 import SmallSpinner from '../../../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../../../Context/UserContext';
+import useTitle from '../../../../Hooks/useTitle';
 
 
 const AllBuyers = () => {
+    useTitle('All Buyers');
     const { user } = useContext(AuthContext);
     // Products loading
     const uri = `${import.meta.env.VITE_serverUrl}/userByType?uid=${user?.uid}&role=Buyer`;

@@ -6,6 +6,7 @@ import { AuthContext } from '../../../../Context/UserContext';
 import AdminProductsCell from './AdminProductsCell';
 
 const AdminProducts = () => {
+    useTitle('All Products');
     const { user } = useContext(AuthContext);
     // Products loading
     const uri = `${import.meta.env.VITE_serverUrl}/products?uid=${user?.uid}&role=Admin`;

@@ -7,8 +7,10 @@ import { sendImgToImgBB } from '../../../../Helpers/ImgBBStoreSingleImage';
 import Loader from '../../../../Components/Loader/Loader';
 import { LoadingOverlay } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import useTitle from '../../../../Hooks/useTitle';
 
 const ProductAdd = () => {
+    useTitle('Add New Product');
     const [formPhotoUrl, setFormPhotoUrl] = useState(null);
     // this token will verify user logged in or not including JWT token
     const [thumbnail, setThumbnail] = useState(false);

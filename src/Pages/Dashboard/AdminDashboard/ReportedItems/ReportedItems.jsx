@@ -2,10 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import SmallSpinner from '../../../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../../../Context/UserContext';
+import useTitle from '../../../../Hooks/useTitle';
 import AdminProductsCell from '../AdminProducts/AdminProductsCell';
 ;
 
 const ReportedItems = () => {
+    useTitle('Reported Items');
     const { user } = useContext(AuthContext);
     // Products loading
     const uri = `${import.meta.env.VITE_serverUrl}/products?uid=${user?.uid}&role=Admin&reported=TRUE`;

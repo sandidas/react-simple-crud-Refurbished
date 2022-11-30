@@ -6,11 +6,16 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 
 const CheckOutForm = ({ order }) => {
-    const { productTitle, productId, productPrice, uid, buyerPhoneNumber } = order;
+    const { name, email, productTitle, productId, productPrice, uid, buyerPhoneNumber } = order;
+    const [paymentError, setPaymentError] = useState("");
     const [clientSecret, setClientSecret] = useState('');
+    const [success, setSuccess] = useState("");
+    const [tranId, setTranId] = useState("");
+    const [porcessing, setProcessing] = useState(false);
+
     const stripe = useStripe();
     const elements = useElements();
-    const price = order.productPrice;
+
 
     useEffect(() => {
         const uri = `${import.meta.env.VITE_serverUrl}/create-payment-intent`;
@@ -20,30 +25,31 @@ const CheckOutForm = ({ order }) => {
                 'content-type': 'application/json',
                 authorization: `Bearer ${localStorage.getItem('refurbished')}` // JWToken
             },
-            body: JSON.stringify({ price })
+            body: JSON.stringify({ productPrice })
         };
         // Create PaymentIntent as soon as the page loads
         fetch(uri, settings)
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
-    }, [price]);
+    }, [productPrice]);
 
 
 
 
     const handleSubmit = async (event) => {
         // Block native form submission.
-        event.preventDefault();
+        event.preventDefault(); 
+
         if (!stripe || !elements) {
             // Stripe.js has not loaded yet. Make sure to disable
             // form submission until Stripe.js has loaded.
-            toast.error('element not found')
+            console.log('elementor not found');
             return;
         }
         const card = elements.getElement(CardElement);
 
         if (card == null) {
-            toast.error('Card not found')
+            console.log('Card not found');
             return;
         }
         // Use your card Element with other Stripe.js APIs
@@ -52,35 +58,66 @@ const CheckOutForm = ({ order }) => {
             card,
         });
         if (error) {
-            toast.error(error)
-            console.log('[error]', error);
+            setPaymentError(error);
+            console.log('error: ', error);
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
+            console.log('PaymentMethod: ', paymentMethod);
         }
+        setSuccess("");
+        setProcessing(true);
+
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
             clientSecret,
             {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: 'Jenny Rosen',
+                        name: name,
+                        email: email,
                     },
                 },
             },
         );
         if (confirmError) {
-            toast.error(confirmError);
+            setPaymentError(confirmError.message);
             console.log('confirmError: ', confirmError);
+            return;
         }
-        console.log('paymentIntent: ',paymentIntent);
-
-    }
-
-
+        if (paymentIntent.status === "succeeded") {
+            const payment = {
+                price: productPrice,
+                bookingId: order._id,
+                email: email,
+                productId: productId,
+                transactionId: paymentIntent.id || true,
+            };
+            const storeUri = `${import.meta.env.VITE_serverUrl}/payment`;
+            fetch(storeUri, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(payment),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.acknowledged) {
+                        setSuccess("Congrats! Your payment successfull");
+                        setTranId(paymentIntent.id);
+                        toast.success("Payment successfull");
+                    }
+                });
+        }
+        setProcessing(false);
+    } 
 
 
     return (
         <>
+            <div className="mb-3">
+                <p className="text-success">{success}</p>
+                {tranId && <p>Your trangaction Id : {tranId}</p>}
+            </div>
             <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{

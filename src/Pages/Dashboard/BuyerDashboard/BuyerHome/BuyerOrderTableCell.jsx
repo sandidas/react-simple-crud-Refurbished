@@ -1,11 +1,12 @@
+import { loadStripe } from '@stripe/stripe-js';
 import { async } from '@firebase/util';
 import { Avatar, Button, Modal } from '@mantine/core';
 import { Elements } from '@stripe/react-stripe-js';
 import React, { useState } from 'react';
 import CheckOutForm from './CheckOutForm';
+const stripePromise = loadStripe(import.meta.env.VITE_stripe_pk);
 
-
-const BuyerOrderTableCell = ({ order, stripePromise }) => {
+const BuyerOrderTableCell = ({ order }) => {
     const orderDate = new Date(order?.orderTime);
     const [opened, setOpened] = useState(false);
     return (
@@ -15,7 +16,8 @@ const BuyerOrderTableCell = ({ order, stripePromise }) => {
                     <Avatar src={order?.photoUrl} alt="it's me" />
                 </td>
                 <td className="p-3">
-                    <p> {order?.productTitle} </p>
+                    <p> {order?.productTitle} <br />
+                        <small className='text-gray-500'>{order?._id}</small> </p>
                 </td>
                 <td className="p-3">
                     <p> ${order?.productPrice} </p>
@@ -24,9 +26,10 @@ const BuyerOrderTableCell = ({ order, stripePromise }) => {
                     <p>{orderDate.toDateString()}</p>
                 </td>
                 <td className="p-3 text-right">
-                    <Button onClick={() => setOpened(true)} color="grape" className='bg-red-700'>
+                    {order?.paymentStatus ? "Already paid" : <Button onClick={() => setOpened(true)} color="grape" className='bg-red-700'>
                         Pay Now
-                    </Button>
+                    </Button>}
+
                 </td>
             </tr>
             <Modal centered

@@ -87,9 +87,9 @@ const Home = () => {
                                 <div className="flex items-center space-x-1">
                                     <span className="flex-shrink-0 w-12 text-sm">4 star</span>
                                     <div className="flex-1 h-4 overflow-hidden rounded-sm dark:bg-gray-700">
-                                        <div className="dark:bg-orange-300 h-4 w-4/6"></div>
+                                        <div className="dark:bg-orange-300 h-4 w-2/6"></div>
                                     </div>
-                                    <span className="flex-shrink-0 w-12 text-sm text-right">67%</span>
+                                    <span className="flex-shrink-0 w-12 text-sm text-right">13%</span>
                                 </div>
                             </div>
                         </div>

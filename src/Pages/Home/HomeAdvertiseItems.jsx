@@ -19,16 +19,17 @@ const HomeAdvertiseItems = () => {
             return data.data;
         }
     })
-    if (isLoading) {
-        return <SmallSpinner />
-    }
+    // if (isLoading) {
+    //     return <SmallSpinner />
+    // }
 
-    if (isError) {
-        toast.error(error.message);
-    }
+    // if (isError) {
+    //     toast.error(error.message);
+    // }
     return (
-        <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
+        <section className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5'>
             {
+                isLoading || isError ? <SmallSpinner /> :
                 advertisedProducts &&
                 advertisedProducts.map(product =>
                     <ProductSingleCard key={product?._id} product={product} refetch={refetch} />

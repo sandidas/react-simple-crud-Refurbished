@@ -8,10 +8,11 @@ import SmallSpinner from '../../../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../../../Context/UserContext';
 import { extensionAndSizeValidations } from '../../../../Helpers/FileSizeTypeValidation';
 import { sendImgToImgBB } from '../../../../Helpers/ImgBBStoreSingleImage';
+import useTitle from '../../../../Hooks/useTitle';
 import ProductsRow from './ProductsRow';
 
 const SellerHome = () => {
-
+    useTitle('My Products');
     const { user, handleUserSignOut } = useContext(AuthContext);
     const [modalOpened, setModalOpened] = useState(false);
     const [modalData, setModalData] = useState(null);
@@ -20,8 +21,6 @@ const SellerHome = () => {
     // this token will verify user logged in or not including JWT token
     const [thumbnail, setThumbnail] = useState(false);
     const [visible, setVisible] = useState(false);
-
-
 
     const checkImageSizeAndType = (e) => {
         const photoURL = e.target.files[0];
@@ -45,7 +44,6 @@ const SellerHome = () => {
             setThumbnail(reader.result.toString());
         };
         setFormPhotoUrl(photoURL);
-
     }
 
     // product edit and update modal 
@@ -123,7 +121,7 @@ const SellerHome = () => {
             setVisible(false);
             refetch();
             reset()
-            console.log(error);
+            // console.log(error);
         }
     }
 

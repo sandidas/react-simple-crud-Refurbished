@@ -3,14 +3,15 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import SmallSpinner from '../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../Context/UserContext';
+import useTitle from '../../Hooks/useTitle';
 
 const DashboardHome = () => {
-    const { userRole, user, setLoading, loading } = useContext(AuthContext);
-    const [iam, setIam] = useState();
+    useTitle('Dashboard');
+    const { userRole, user, loading } = useContext(AuthContext);
+    const [iam, setIam] = useState('');
     // Products loading 
 
     useEffect(() => {
-        setLoading(true)
         const url = `${import.meta.env.VITE_serverUrl}/singleuser/${user?.uid}`;
 
         const fetchDataFromApi = async () => {
@@ -18,15 +19,11 @@ const DashboardHome = () => {
                 const res = await fetch(url);
                 const data = await res.json();
                 setIam(data.data);
-                setLoading(false);
             } catch (error) {
                 showAlert('danger', 'Data not found from API Call');
-                setLoading(false);
             }
         };
         fetchDataFromApi();
-        setLoading(false)
-
     }, []);
 
     // console.log(user);

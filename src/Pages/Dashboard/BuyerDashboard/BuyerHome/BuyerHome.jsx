@@ -1,13 +1,14 @@
-import { loadStripe } from '@stripe/stripe-js';
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import SmallSpinner from '../../../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../../../Context/UserContext';
+import useTitle from '../../../../Hooks/useTitle';
 import BuyerOrderTableCell from './BuyerOrderTableCell';
 
 const BuyerHome = () => {
+    useTitle('Buyer Dashboard');
 
-    const stripePromise = loadStripe(import.meta.env.VITE_stripe_pk);
+    
 
 
     const { user, userRole, loading, isRoleLoading } = useContext(AuthContext);
@@ -55,7 +56,7 @@ const BuyerHome = () => {
                                     <th className="p-3">#</th>
                                     <th className="p-3">Title</th>
                                     <th className="p-3">Price</th>
-                                    <th className="p-3">Order Date</th>
+                                    <th className="p-3">Order Date</th> 
                                     <th className="p-3 text-right">Action</th>
                                 </tr>
                             </thead>
@@ -65,7 +66,6 @@ const BuyerHome = () => {
                                     data.map((order, i) => <BuyerOrderTableCell
                                         key={i}
                                         order={order}
-                                        stripePromise={stripePromise}
 
                                     />)
                                 }
