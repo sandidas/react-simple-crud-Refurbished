@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import DashboardUsersCell from '../../../../Components/DashboardUsersCell/DashboardUsersCell';
 import SmallSpinner from '../../../../Components/Spinner/SmallSpinner';
 import { AuthContext } from '../../../../Context/UserContext';
-import AdminProductsCell from './AdminProductsCell';
+import AdminProductsCell from '../AdminProducts/AdminProductsCell';
+;
 
-const AdminProducts = () => {
+const ReportedItems = () => {
     const { user } = useContext(AuthContext);
     // Products loading
-    const uri = `${import.meta.env.VITE_serverUrl}/products?uid=${user?.uid}&role=Admin`;
+    const uri = `${import.meta.env.VITE_serverUrl}/products?uid=${user?.uid}&role=Admin&reported=TRUE`;
     const settings = {
         method: 'GET',
         headers: {
@@ -28,7 +28,7 @@ const AdminProducts = () => {
             return data.data;
         }
     })
-    console.log(data);
+
 
     if (isLoading) {
         return <SmallSpinner />
@@ -40,7 +40,7 @@ const AdminProducts = () => {
     return (
         <section>
             <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
-                <h2 className="mb-4 text-2xl font-semibold leading-tight">All Products</h2>
+                <h2 className="mb-4 text-2xl font-semibold leading-tight">Reported Products</h2>
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-xs">
 
@@ -56,7 +56,6 @@ const AdminProducts = () => {
                             </tr>
                         </thead>
                         <tbody>
-
                             {
                                 data && data?.map((product, i) => <AdminProductsCell
                                     product={product}
@@ -66,7 +65,6 @@ const AdminProducts = () => {
 
                                 />)
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -76,4 +74,5 @@ const AdminProducts = () => {
     );
 };
 
-export default AdminProducts;
+
+export default ReportedItems;

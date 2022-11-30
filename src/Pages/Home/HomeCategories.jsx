@@ -76,7 +76,7 @@ const HomeCategories = () => {
                             </Group>
 
 
-                            <Link to={`/categories/${categories?.slug}`} className='w-full text-center bg-red-600 px-3 py-3 hover:bg-red-900 rounded-md text-white'> Visit Now   </Link>
+                            <Button component={Link} fullWidth to={`/categories/${categories?.slug}`}> Visit Now   </Button>
                         </Card>
                     )
                 }

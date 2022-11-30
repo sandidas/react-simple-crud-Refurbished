@@ -15,13 +15,13 @@ import ProductAdd from "../../Pages/Dashboard/SellerDashboard/ProductAdd/Product
 import PrivateRoute from "../../PrivateRoute/PrivateRoute";
 import Categories from "../../Pages/Categories/Categories";
 import AllSellers from "../../Pages/Dashboard/AdminDashboard/AllSellers/AllSellers";
-import AllReport from "../../Pages/Dashboard/AdminDashboard/AllReport/AllReport";
 import AllBuyers from "../../Pages/Dashboard/AdminDashboard/AllBuyers/AllBuyers";
 import DashUsers from "../../Pages/Dashboard/AdminDashboard/DashUsers/DashUsers";
 import NotForLoggedInUser from "../NotForLoggedInUser/NotForLoggedInUser";
 import LayoutCommonDashboard from "../../Layouts/LayoutCommonDashboard/LayoutCommonDashboard";
 import DashboardHome from "../../Pages/Dashboard/DashboardHome";
 import AdminProducts from "../../Pages/Dashboard/AdminDashboard/AdminProducts/AdminProducts";
+import ReportedItems from "../../Pages/Dashboard/AdminDashboard/ReportedItems/ReportedItems";
 
 export const router = createBrowserRouter([
   {
@@ -116,7 +116,7 @@ export const router = createBrowserRouter([
         element: <PrivateRoute><DashUsers /></PrivateRoute>
       }, {
         path: '/dashboard/admin/reports',
-        element: <PrivateRoute><AllReport /></PrivateRoute>
+        element: <PrivateRoute><ReportedItems /></PrivateRoute>
       }, {
         path: '/dashboard/admin/products',
         element: <PrivateRoute><AdminProducts /></PrivateRoute>

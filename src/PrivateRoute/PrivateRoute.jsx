@@ -17,7 +17,7 @@ const PrivateRoute = ({ children }) => {
     console.log(loading);
 
 
-    if (loading || !userRole || isRoleLoading) {
+    if (loading) {
         return <LoadingOverlay
         loaderProps={{ size: 'md', color: 'pink', variant: 'bars' }}
         overlayOpacity={0}

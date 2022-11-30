@@ -3,7 +3,15 @@
 # Features and functions
 - ErrorPage [for errors]
 - Theme dark/light
-
+- Multiple dashboard
+- Payment gateway
+- Social and form login
+- CRUD integration
+- Loader integration
+- Modal integration
+- React Hook from integration
+- React query integration
+- Mantine integration
 
 
 

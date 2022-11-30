@@ -1,4 +1,5 @@
 import { Button, Image, Modal } from '@mantine/core';
+import { IconCheckbox } from '@tabler/icons';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -51,7 +52,9 @@ const AdminProductsCell = ({ user, product, i, refetch }) => {
                 </td>
                 <td className="p-3"> ${product?.originalPrice}  </td>
                 <td className="p-3"> ${product?.resalePrice}  </td>
+
                 <td className="p-3"> {product?.status}  </td>
+                <td className="p-3"> {product?.isReported && <IconCheckbox size={15} color="red" />}  </td>
 
                 <td className="p-3"><Button onClick={() => setOpened(true)} color='red' compact>
                     Delete
